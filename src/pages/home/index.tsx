@@ -32,7 +32,7 @@ export default function Home() {
         <Text style={styles.cardNumber}>nº carteirinha</Text>
       </View>
 
-      {/* Acesso Rápido */}
+      {/* Acesso Rápido  */}
       <Text style={styles.acessoRapidoTitle}>Acesso Rápido</Text>
       <View style={styles.acessoRapidoContainer}>
         {acessoRapidoData.map(item => (
@@ -43,7 +43,7 @@ export default function Home() {
         ))}
       </View>
 
-      {/* Menu de Navegação */}
+      {/* Menu de Navegação  */}
       <View style={styles.navBar}>
         {menuItems.map(item => (
           <TouchableOpacity
