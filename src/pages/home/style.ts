@@ -1,104 +1,108 @@
-import { StyleSheet } from 'react-native';
+// style.ts
+import { StyleSheet, Dimensions } from 'react-native';
 
-export const styles = StyleSheet.create({
+const { width } = Dimensions.get('window');
+
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#E6E6E6',
-    paddingTop: 40,
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#0066FF',
-    paddingVertical: 15,
+    paddingTop: 50,
     paddingHorizontal: 20,
+    paddingBottom: 15,
   },
-  hamburgerIcon: {
-    width: 24,
-    height: 24,
-    marginRight: 10,
-    tintColor: '#fff',
+  drawerIcon: {
+    width: 25,
+    height: 18,
+    marginTop: -10,
   },
-  headerTitle: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
+  logoPequeno: {
+    width: 140,        // aumentei o tamanho
+    height: 50,        // aumentei um pouco a altura
+    resizeMode: 'contain',
+    alignSelf: 'center', // centraliza horizontalmente
+    marginTop: -10,
   },
   userCard: {
     backgroundColor: '#FFFFFF',
+    marginHorizontal: 0,
+    marginTop: -10,
+    marginBottom: 20,
     borderRadius: 20,
-    margin: 20,
     padding: 20,
+    width: width,
+    height: 180,
+    alignSelf: 'center',
+    position: 'relative',
   },
-  userTitle: {
+  userName: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
   },
-  userSubtitle: {
+  userPlan: {
     fontSize: 14,
-    color: '#333',
-    marginBottom: 10,
+    color: '#444',
+  },
+  userPlanNumber: {
+    fontSize: 14,
+    color: '#444',
   },
   cardNumber: {
-    fontSize: 14,
-    color: '#0066FF',
+    fontSize: 13,
+    color: '#666',
+    marginTop: 8,
   },
-  acessoRapidoTitle: {
-    marginLeft: 20,
+  profileCircle: {
+    position: 'absolute',
+    right: 20,
+    top: 20,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#DDD',
+  },
+  accessText: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginTop: 10,
+    marginHorizontal: 20,
     marginBottom: 10,
   },
-  acessoRapidoContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingHorizontal: 10,
+  quickAccessContainer: {
+    paddingLeft: 20,
+    paddingRight: 10,
+    gap: 25
   },
-  acessoRapidoItem: {
+  quickItem: {
     alignItems: 'center',
+    marginRight: 30, // antes era 20
   },
-  acessoRapidoIcon: {
-    width: 50,
-    height: 50,
+  quickButton: {
+    width: 70,
+    height: 70,
+    borderRadius: 50,
+    backgroundColor: '#FFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 3,
     marginBottom: 5,
   },
-  acessoRapidoText: {
+
+  
+  quickIcon: {
+    width: 30,
+    height: 30,
+  },
+  quickText: {
     fontSize: 12,
     textAlign: 'center',
-    color: '#000',
-  },
-  navBar: {
-    flexDirection: 'row',
-    backgroundColor: '#002255',
-    height: 70,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  navItem: {
-    alignItems: 'center',
-    padding: 10,
-    borderRadius: 12,
-  },
-  navItemSelected: {
-    borderColor: '#0066FF',
-    borderWidth: 2,
-  },
-  navIcon: {
-    width: 24,
-    height: 24,
-    tintColor: '#fff',
-  },
-  navText: {
-    fontSize: 12,
-    color: '#fff',
-    marginTop: 4,
-  },
-  navTextSelected: {
-    color: '#0066FF',
-    fontWeight: 'bold',
+    maxWidth: 80,
   },
 });
+
+export default styles;

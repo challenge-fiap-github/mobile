@@ -1,71 +1,61 @@
-import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
-import { styles } from './style';
+// index.tsx
+import React from 'react';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
+import styles from './style';
 
-const acessoRapidoData = [
-  { id: '1', label: 'Rede Credenciada', icon: require('../../../assets/redeIcon.png') },
-  { id: '2', label: 'Odonto Game', icon: require('../../../assets/gameIcon.png') },
-  { id: '3', label: 'Agendamento', icon: require('../../../assets/agendamentoIcon.png') },
-];
-
-const menuItems = [
-  { id: '1', label: 'Início', icon: require('../../../assets/inicioIcon.png') },
-  { id: '2', label: 'Plano', icon: require('../../../assets/planoIcon.png') },
-  { id: '3', label: 'Token', icon: require('../../../assets/tokenIcon.png') },
-];
-
-export default function Home() {
-  const [selectedMenu, setSelectedMenu] = useState('1');
-
+export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      {/* Header */}
+      {/* Header Azul com Ícone Drawer e Logo */}
       <View style={styles.header}>
-        <Image source={require('../../../assets/inicioIcon.png')} style={styles.hamburgerIcon} />
-        <Text style={styles.headerTitle}>odontoprev</Text>
+        <Image source={require('../../assets/DrawerIcon.png')} style={styles.drawerIcon} />
+        <Image source={require('../../assets/logoPequeno.png')} style={styles.logoPequeno} />
       </View>
 
-      {/* Card de Usuário */}
+      {/* Bloco Branco com Informações do Usuário */}
       <View style={styles.userCard}>
-        <Text style={styles.userTitle}>Olá, Nome</Text>
-        <Text style={styles.userSubtitle}>PLANO DENTAL{'\n'}DENTAL XXX XX XXXXX</Text>
-        <Text style={styles.cardNumber}>nº carteirinha</Text>
+        <Text style={styles.userName}>Olá, Nome</Text>
+        <Text style={styles.userPlan}>PLANO DENTAL</Text>
+        <Text style={styles.userPlanNumber}>DENTAL XXX XX XXXXX</Text>
+        <Text style={styles.cardNumber}>n° carteirinha</Text>
+        <View style={styles.profileCircle} />
       </View>
 
-      {/* Acesso Rápido  */}
-      <Text style={styles.acessoRapidoTitle}>Acesso Rápido</Text>
-      <View style={styles.acessoRapidoContainer}>
-        {acessoRapidoData.map(item => (
-          <View key={item.id} style={styles.acessoRapidoItem}>
-            <Image source={item.icon} style={styles.acessoRapidoIcon} />
-            <Text style={styles.acessoRapidoText}>{item.label}</Text>
+      {/* Acesso Rápido */}
+      <Text style={styles.accessText}>Acesso Rápido</Text>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.quickAccessContainer}
+      >
+        <View style={styles.quickItem}>
+          <View style={styles.quickButton}>
+            <Image source={require('../../assets/redeIcon.png')} style={styles.quickIcon} />
           </View>
-        ))}
-      </View>
+          <Text style={styles.quickText}>Rede Credenciada</Text>
+        </View>
 
-      {/* Menu de Navegação  */}
-      <View style={styles.navBar}>
-        {menuItems.map(item => (
-          <TouchableOpacity
-            key={item.id}
-            style={[
-              styles.navItem,
-              selectedMenu === item.id && styles.navItemSelected,
-            ]}
-            onPress={() => setSelectedMenu(item.id)}
-          >
-            <Image source={item.icon} style={styles.navIcon} />
-            <Text
-              style={[
-                styles.navText,
-                selectedMenu === item.id && styles.navTextSelected,
-              ]}
-            >
-              {item.label}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+        <View style={styles.quickItem}>
+          <View style={styles.quickButton}>
+            <Image source={require('../../assets/gameIcon.png')} style={styles.quickIcon} />
+          </View>
+          <Text style={styles.quickText}>Odonto{'\n'}Game</Text>
+        </View>
+
+        <View style={styles.quickItem}>
+          <View style={styles.quickButton}>
+            <Image source={require('../../assets/agendamentoIcon.png')} style={styles.quickIcon} />
+          </View>
+          <Text style={styles.quickText}>Agendamento</Text>
+        </View>
+      </ScrollView>
     </View>
   );
 }
