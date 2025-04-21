@@ -101,6 +101,40 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     maxWidth: 80,
   },
+bottomTabContainer: {
+  flexDirection: 'row',
+  backgroundColor: '#002255',
+  borderRadius: 50,
+  marginHorizontal: 30,
+  marginBottom: 25,
+  paddingVertical: 16, // antes era 10
+  justifyContent: 'space-between',
+  paddingHorizontal: 25,
+  alignItems: 'center',
+},
+tabItem: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  paddingHorizontal: 20,  // aumentamos
+  paddingVertical: 10,    // aumentamos
+  borderRadius: 30,
+},
+tabItemActive: {
+  backgroundColor: '#0066FF',
+  paddingHorizontal: 20,  // reforçamos o espaço lateral
+  paddingVertical: 12,    // e vertical
+},
+tabIcon: {
+  width: 24,  // aumentamos levemente
+  height: 24,
+  tintColor: '#FFF',
+},
+tabLabel: {
+  color: '#FFF',
+  marginLeft: 8,
+  fontSize: 14,
+},
+  
 });
 
 export default styles;

@@ -1,11 +1,13 @@
-import React, { useRef } from 'react';
+// index.tsx
+import React, { useRef, useState } from 'react';
 import {
   View,
   Text,
   Image,
   FlatList,
-  TouchableOpacity,
   Animated,
+  TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import styles from './style';
 
@@ -18,7 +20,14 @@ const shortcuts = [
   { icon: require('../../assets/usuarioAcessoIcon.png'), label: 'Usuário' },
 ];
 
+const bottomTabs = [
+  { key: 'Inicio', icon: require('../../assets/inicioIcon.png'), label: 'Início' },
+  { key: 'Plano', icon: require('../../assets/planoIcon.png'), label: 'Plano' },
+  { key: 'Token', icon: require('../../assets/tokenIcon.png'), label: 'Token' },
+];
+
 export default function HomeScreen() {
+  const [activeTab, setActiveTab] = useState('Inicio');
   const scale = useRef(new Animated.Value(1)).current;
 
   const handlePressIn = () => {
@@ -31,8 +40,6 @@ export default function HomeScreen() {
   const handlePressOut = () => {
     Animated.spring(scale, {
       toValue: 1,
-      friction: 3,
-      tension: 40,
       useNativeDriver: true,
     }).start();
   };
@@ -66,13 +73,11 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <Image source={require('../../assets/DrawerIcon.png')} style={styles.drawerIcon} />
         <Image source={require('../../assets/logoPequeno.png')} style={styles.logoPequeno} />
       </View>
 
-      {/* Card do Usuário */}
       <View style={styles.userCard}>
         <Text style={styles.userName}>Olá, Nome</Text>
         <Text style={styles.userPlan}>PLANO DENTAL</Text>
@@ -81,7 +86,6 @@ export default function HomeScreen() {
         <View style={styles.profileCircle} />
       </View>
 
-      {/* Acesso Rápido */}
       <Text style={styles.accessText}>Acesso Rápido</Text>
       <FlatList
         data={shortcuts}
@@ -91,9 +95,27 @@ export default function HomeScreen() {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.quickAccessContainer}
         snapToAlignment="start"
-        snapToInterval={100}
         decelerationRate="fast"
+        snapToInterval={100}
       />
+
+      {/* Bottom Menu */}
+      <View style={styles.bottomTabContainer}>
+        {bottomTabs.map((tab) => {
+          const isActive = activeTab === tab.key;
+          return (
+            <TouchableOpacity
+              key={tab.key}
+              style={[styles.tabItem, isActive && styles.tabItemActive]}
+              onPress={() => setActiveTab(tab.key)}
+              activeOpacity={0.8}
+            >
+              <Image source={tab.icon} style={styles.tabIcon} />
+              {isActive && <Text style={styles.tabLabel}>{tab.label}</Text>}
+            </TouchableOpacity>
+          );
+        })}
+      </View>
     </View>
   );
 }
