@@ -1,4 +1,3 @@
-// style.ts
 import { StyleSheet, Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window');
@@ -22,10 +21,10 @@ const styles = StyleSheet.create({
     marginTop: -10,
   },
   logoPequeno: {
-    width: 140,        // aumentei o tamanho
-    height: 50,        // aumentei um pouco a altura
+    width: 140,
+    height: 45,
     resizeMode: 'contain',
-    alignSelf: 'center', // centraliza horizontalmente
+    marginLeft: -15,
     marginTop: -10,
   },
   userCard: {
@@ -76,11 +75,12 @@ const styles = StyleSheet.create({
   quickAccessContainer: {
     paddingLeft: 20,
     paddingRight: 10,
-    gap: 25
   },
   quickItem: {
     alignItems: 'center',
-    marginRight: 30, // antes era 20
+    justifyContent: 'center',
+    width: 100,
+    marginRight: 25,
   },
   quickButton: {
     width: 70,
@@ -92,8 +92,6 @@ const styles = StyleSheet.create({
     elevation: 3,
     marginBottom: 5,
   },
-
-  
   quickIcon: {
     width: 30,
     height: 30,
