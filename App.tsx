@@ -3,8 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 
-// ESTOU AJUSTANDO O INDEX CONFORME A CRIAÇÃO DAS TELAS
-import BuscaRede from "./src/pages/buscaRede/index";
+// Importa a nova tela do Odonto Game
+import OdontoGame from "./src/pages/game/index"; // ajuste o caminho se necessário
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +13,7 @@ export default function App() {
     <NavigationContainer>
       <StatusBar style="light" backgroundColor="#0066FF" />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="BuscaRede" component={BuscaRede} />
+        <Stack.Screen name="OdontoGame" component={OdontoGame} />
       </Stack.Navigator>
     </NavigationContainer>
   );

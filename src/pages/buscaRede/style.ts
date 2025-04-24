@@ -79,18 +79,21 @@ const styles = StyleSheet.create({
   },
   footerLabel: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: 'bold',
+    color: '#4D4D4D',
   },
   footerButton: {
     borderWidth: 1,
-    borderColor: '#555',
+    borderColor: '#A2A2A2',
+    backgroundColor: '#D9D9D9',
     borderRadius: 20,
     paddingVertical: 6,
     paddingHorizontal: 15,
   },
   footerButtonText: {
     fontSize: 13,
-    color: '#000',
+    fontWeight: 'bold',
+    color: '#4D4D4D',
   },
 });
 
