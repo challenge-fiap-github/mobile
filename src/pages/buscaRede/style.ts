@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   optionIcon: {
-    width: 22, //
-    height: 22,
+    width: 30, //
+    height: 30,
     marginBottom: 10,
   },
   optionTitle: {
