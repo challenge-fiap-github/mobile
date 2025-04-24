@@ -1,11 +1,10 @@
-// App.tsx
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 
-// Importe sua tela principal
-import HomeScreen from "./src/pages/home/index"; // Ajuste esse caminho conforme sua pasta real
+// Nova tela
+import BuscaRede from "./src/pages/buscaRede/index"; // ajuste o caminho se necessário
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +13,7 @@ export default function App() {
     <NavigationContainer>
       <StatusBar style="light" backgroundColor="#0066FF" />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="BuscaRede" component={BuscaRede} />
       </Stack.Navigator>
     </NavigationContainer>
   );
