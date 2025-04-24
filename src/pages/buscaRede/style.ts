@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 16,
     fontWeight: 'bold',
+    flex: 1,
+    textAlign: 'center',
   },
   content: {
     flex: 1,
@@ -53,7 +55,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   optionIcon: {
-    width: 22, // ⬅️ diminuído para evitar corte
+    width: 22, //
     height: 22,
     marginBottom: 10,
   },

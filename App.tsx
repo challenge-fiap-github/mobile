@@ -3,8 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 
-// Nova tela
-import BuscaRede from "./src/pages/buscaRede/index"; // ajuste o caminho se necessário
+// ESTOU AJUSTANDO O INDEX CONFORME A CRIAÇÃO DAS TELAS
+import BuscaRede from "./src/pages/buscaRede/index";
 
 const Stack = createNativeStackNavigator();
 
