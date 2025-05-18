@@ -1,4 +1,3 @@
-// index.tsx
 import React from 'react';
 import {
   View,
@@ -7,23 +6,32 @@ import {
   Image,
 } from 'react-native';
 import styles from './style';
+import { useNavigation } from '@react-navigation/native';
 
 export default function OdontoGame() {
+  const navigation = useNavigation();
+
+  const handleBackPress = () => {
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
-      {/* Header com ícones de navegação */}
+      {/* Header com ícone de voltar */}
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleBackPress}>
           <Image source={require('../../assets/backIcon.png')} style={styles.icon} />
         </TouchableOpacity>
+
         <Text style={styles.headerTitle}>Odonto Game</Text>
-        <TouchableOpacity>
-          <Image source={require('../../assets/homeIcon.png')} style={styles.icon} />
-        </TouchableOpacity>
+
+        <View style={{ width: 22 }} /> {/* Mantém o título centralizado */}
       </View>
 
       {/* Pontuação */}
-      <Text style={styles.scoreText}>Pontuação: <Text style={styles.scoreX}>X X X</Text></Text>
+      <Text style={styles.scoreText}>
+        Pontuação: <Text style={styles.scoreX}>X X X</Text>
+      </Text>
 
       {/* Botões principais */}
       <View style={styles.buttonGrid}>

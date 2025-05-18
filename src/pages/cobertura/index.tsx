@@ -1,4 +1,3 @@
-// index.tsx
 import React from 'react';
 import {
   View,
@@ -8,6 +7,7 @@ import {
   ScrollView,
 } from 'react-native';
 import styles from './style';
+import { useNavigation } from '@react-navigation/native';
 
 const coberturas = [
   { nome: 'Emergência', icon: require('../../assets/emergenciaIcon.png') },
@@ -27,11 +27,17 @@ const coberturas = [
 ];
 
 export default function Cobertura() {
+  const navigation = useNavigation();
+
+  const handleBackPress = () => {
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleBackPress}>
           <Image source={require('../../assets/backIcon.png')} style={styles.icon} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Cobertura e carência</Text>

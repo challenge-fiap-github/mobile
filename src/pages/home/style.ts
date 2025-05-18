@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 20,
     width: width,
-    height: 180,
+    height: 150,
     alignSelf: 'center',
     position: 'relative',
   },
@@ -57,15 +57,30 @@ const styles = StyleSheet.create({
     color: '#666',
     marginTop: 8,
   },
-  profileCircle: {
-    position: 'absolute',
-    right: 20,
-    top: 20,
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#DDD',
-  },
+profileCircle: {
+  position: 'absolute',
+  right: 20,
+  top: 20,
+  width: 80,
+  height: 80,
+  borderRadius: 40,
+  backgroundColor: '#DDD',
+  overflow: 'hidden',
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+
+cameraIconOnly: {
+  width: 80,
+  height: 80,
+  resizeMode: 'contain',
+},
+
+profileImage: {
+  width: 80,
+  height: 80,
+  borderRadius: 40,
+},
   accessText: {
     fontSize: 16,
     fontWeight: 'bold',
@@ -107,7 +122,7 @@ bottomTabContainer: {
   borderRadius: 50,
   marginHorizontal: 30,
   marginBottom: 25,
-  paddingVertical: 16, // antes era 10
+  paddingVertical: 10,
   justifyContent: 'space-between',
   paddingHorizontal: 25,
   alignItems: 'center',
@@ -115,17 +130,17 @@ bottomTabContainer: {
 tabItem: {
   flexDirection: 'row',
   alignItems: 'center',
-  paddingHorizontal: 20,  // aumentamos
-  paddingVertical: 10,    // aumentamos
+  paddingHorizontal: 20,
+  paddingVertical: 10,
   borderRadius: 30,
 },
 tabItemActive: {
   backgroundColor: '#0066FF',
-  paddingHorizontal: 20,  // reforçamos o espaço lateral
-  paddingVertical: 12,    // e vertical
+  paddingHorizontal: 20,
+  paddingVertical: 12,
 },
 tabIcon: {
-  width: 24,  // aumentamos levemente
+  width: 24,
   height: 24,
   tintColor: '#FFF',
 },
