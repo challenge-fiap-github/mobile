@@ -7,12 +7,18 @@ import {
 } from 'react-native';
 import styles from './style';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/types';
 
 export default function OdontoGame() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const handleBackPress = () => {
-    navigation.goBack();
+    navigation.navigate('Home');
+  };
+
+  const handleGoToTarefasDiarias = () => {
+    navigation.navigate('TarefasDiarias');
   };
 
   return (
@@ -35,7 +41,7 @@ export default function OdontoGame() {
 
       {/* Botões principais */}
       <View style={styles.buttonGrid}>
-        <TouchableOpacity style={styles.menuButton}>
+        <TouchableOpacity style={styles.menuButton} onPress={handleGoToTarefasDiarias}>
           <Image source={require('../../assets/tarefaIcon.png')} style={styles.menuIcon} />
           <Text style={styles.menuText}>Tarefas diárias</Text>
         </TouchableOpacity>

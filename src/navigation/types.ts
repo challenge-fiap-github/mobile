@@ -3,9 +3,20 @@ export type RootStackParamList = {
   BuscaRede: undefined;
   Game: undefined;
   Agendamento: undefined;
+  AgendamentoConsulta: undefined;
+  AgendamentoBusca: undefined;   
+  AgendamentoResultado: undefined; 
+
   Cobertura: undefined;
   FaleConosco: undefined;
   DadosPessoais: undefined;
+
+  ChecklistDiario: undefined;
+  ChecklistSemanal: undefined;         
+
+  Quiz: undefined;                   
+  Premios: undefined;                 
+
   BuscarLocalidade: {
     estadoSelecionado?: string;
     cidadeSelecionada?: string;
@@ -14,4 +25,8 @@ export type RootStackParamList = {
   SelecionarCidade: {
     estadoSelecionado: string;
   };
+
+  TarefasDiarias: undefined;
+  PontuacaoConsulta: undefined;
+  OdontoGame: undefined;
 };
