@@ -28,19 +28,6 @@ O **OdontoVision** foi criado para incentivar **consultas preventivas**, **reduz
 
 ---
 
-## 🛠️ Como Executar o Projeto
-
-1. **Clone o repositório**:
-```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
-
-npm install
-
-npx expo start
-
----
-
 ## 📲 Funcionalidades
 
 ### Para Clientes:
