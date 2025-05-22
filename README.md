@@ -92,6 +92,10 @@ react-native-screens
 react-native-vector-icons
 seedrandom
 
+---
+
+
+
 ## 🛠️ Como Executar o Projeto
 
 1. **Clone o repositório**:
@@ -102,4 +106,3 @@ cd seu-repositorio
 npm install
 
 npx expo start
-
