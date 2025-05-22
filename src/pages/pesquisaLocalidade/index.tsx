@@ -17,7 +17,7 @@ export default function BuscarLocalidade() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<BuscarLocalidadeRouteProp>();
 
-  const { estadoSelecionado, cidadeSelecionada } = route.params || {};
+  const { estadoSelecionado, cidadeSelecionada, bairroSelecionado } = route.params || {};
 
   const [estado, setEstado] = useState('');
   const [cidade, setCidade] = useState('');
@@ -26,7 +26,8 @@ export default function BuscarLocalidade() {
   useEffect(() => {
     if (estadoSelecionado) setEstado(estadoSelecionado);
     if (cidadeSelecionada) setCidade(cidadeSelecionada);
-  }, [estadoSelecionado, cidadeSelecionada]);
+    if (bairroSelecionado) setBairro(bairroSelecionado);
+  }, [estadoSelecionado, cidadeSelecionada, bairroSelecionado]);
 
   const handleBackPress = () => {
     navigation.navigate('Home');
@@ -37,11 +38,18 @@ export default function BuscarLocalidade() {
   };
 
   const handleSelectCidade = () => {
-    navigation.navigate('SelecionarCidade', { estadoSelecionado: estado });
+    if (estado) {
+      navigation.navigate('SelecionarCidade', { estadoSelecionado: estado });
+    }
   };
 
   const handleSelectBairro = () => {
-    // implementação futura
+    if (estado && cidade) {
+      navigation.navigate('SelecionarBairro', {
+        estadoSelecionado: estado,
+        cidadeSelecionada: cidade,
+      });
+    }
   };
 
   return (

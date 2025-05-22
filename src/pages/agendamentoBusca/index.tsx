@@ -99,7 +99,10 @@ export default function AgendamentoBusca() {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.buttonContinuar}>
+      <TouchableOpacity
+        style={styles.buttonContinuar}
+        onPress={() => navigation.navigate('AgendamentoResultado')}
+      >
         <Text style={styles.textContinuar}>Continuar</Text>
         <Text style={styles.seta}>→</Text>
       </TouchableOpacity>

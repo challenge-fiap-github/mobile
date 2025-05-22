@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './style';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/types';
 
 const TODAS_PERGUNTAS = [
   {
@@ -43,7 +50,12 @@ const TODAS_PERGUNTAS = [
   },
   {
     pergunta: 'Qual destas ações NÃO é recomendada?',
-    alternativas: ['Dormir sem escovar os dentes', 'Usar fio dental', 'Escovar após refeições', 'Visitar o dentista regularmente'],
+    alternativas: [
+      'Dormir sem escovar os dentes',
+      'Usar fio dental',
+      'Escovar após refeições',
+      'Visitar o dentista regularmente',
+    ],
     resposta: 'Dormir sem escovar os dentes',
   },
   {
@@ -83,6 +95,10 @@ const TODAS_PERGUNTAS = [
   },
 ];
 
+const PONTOS_KEY = 'GamePoints';
+
+const getTodayKey = () => `QuizRealizado_${new Date().toDateString()}`;
+
 export default function Quiz() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [perguntasHoje, setPerguntasHoje] = useState<typeof TODAS_PERGUNTAS>([]);
@@ -92,22 +108,40 @@ export default function Quiz() {
   const [finalizado, setFinalizado] = useState(false);
 
   useEffect(() => {
-    const embaralhadas = [...TODAS_PERGUNTAS].sort(() => 0.5 - Math.random());
-    setPerguntasHoje(embaralhadas.slice(0, 3));
+    const verificarQuizDoDia = async () => {
+      const jaFezHoje = await AsyncStorage.getItem(getTodayKey());
+      if (jaFezHoje) {
+        Alert.alert('Quiz bloqueado', 'Você já respondeu o quiz de hoje. Tente novamente amanhã.');
+        navigation.goBack();
+        return;
+      }
+
+      const embaralhadas = [...TODAS_PERGUNTAS].sort(() => 0.5 - Math.random());
+      setPerguntasHoje(embaralhadas.slice(0, 3));
+    };
+
+    verificarQuizDoDia();
   }, []);
 
-  const responder = (resposta: string) => {
+  const responder = async (resposta: string) => {
     const correta = perguntasHoje[indice].resposta;
-    if (resposta === correta) {
-      setAcertos((prev) => prev + 1);
-    } else {
-      setErros((prev) => prev + 1);
-    }
+    if (resposta === correta) setAcertos((prev) => prev + 1);
+    else setErros((prev) => prev + 1);
 
     if (indice + 1 < perguntasHoje.length) {
       setIndice(indice + 1);
     } else {
       setFinalizado(true);
+
+      // Salva flag de quiz feito hoje
+      await AsyncStorage.setItem(getTodayKey(), 'true');
+
+      // Soma +1 ponto
+      const stored = await AsyncStorage.getItem(PONTOS_KEY);
+      const pontos = stored ? parseInt(stored, 10) : 0;
+      await AsyncStorage.setItem(PONTOS_KEY, (pontos + 1).toString());
+
+      Alert.alert('Parabéns!', 'Você ganhou 1 ponto pelo quiz de hoje!');
     }
   };
 
@@ -120,10 +154,7 @@ export default function Quiz() {
       <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity onPress={handleBack}>
-            <Image
-              source={require('../../assets/backIcon.png')}
-              style={styles.backIcon}
-            />
+            <Image source={require('../../assets/backIcon.png')} style={styles.backIcon} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Quiz</Text>
           <View style={{ width: 22 }} />
@@ -143,10 +174,7 @@ export default function Quiz() {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBack}>
-          <Image
-            source={require('../../assets/backIcon.png')}
-            style={styles.backIcon}
-          />
+          <Image source={require('../../assets/backIcon.png')} style={styles.backIcon} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Quiz</Text>
         <View style={{ width: 22 }} />

@@ -19,7 +19,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width } = Dimensions.get('window');
 
-const shortcuts = [
+const shortcuts: { icon: any; label: string; route: keyof RootStackParamList; customSize?: number }[] = [
   { icon: require('../../assets/redeIcon.png'), label: 'Rede Credenciada', route: 'BuscaRede' },
   { icon: require('../../assets/gameIcon.png'), label: 'OdontoGame', route: 'Game' },
   { icon: require('../../assets/agendamentoIcon.png'), label: 'Agendamento', customSize: 22, route: 'Agendamento' },
@@ -35,18 +35,28 @@ const bottomTabs = [
 ];
 
 export default function HomeScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
   const [activeTab, setActiveTab] = useState('Inicio');
   const scale = useRef(new Animated.Value(1)).current;
 
   const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [clienteNome, setClienteNome] = useState('');
+  const [carteirinha, setCarteirinha] = useState('');
+  const [plano, setPlano] = useState('');
 
   useEffect(() => {
-    const loadImage = async () => {
+    const loadInfo = async () => {
+      const nome = await AsyncStorage.getItem('usuarioNome');
+      const cart = await AsyncStorage.getItem('carteirinha');
+      const plan = await AsyncStorage.getItem('planoCodigo');
       const uri = await AsyncStorage.getItem('profileImage');
+
+      if (nome) setClienteNome(nome);
+      if (cart) setCarteirinha(cart);
+      if (plan) setPlano(plan);
       if (uri) setProfileImage(uri);
     };
-    loadImage();
+    loadInfo();
   }, []);
 
   const pickImage = async () => {
@@ -73,14 +83,14 @@ export default function HomeScreen() {
   const handleEditProfileImage = () => {
     Alert.alert('Imagem de Perfil', 'O que deseja fazer?', [
       { text: 'Selecionar nova foto', onPress: pickImage },
-{
-  text: 'Remover foto',
-  onPress: async () => {
-    setProfileImage(null); // Remove imagem
-    await AsyncStorage.removeItem('profileImage');
-  },
-  style: 'destructive',
-},
+      {
+        text: 'Remover foto',
+        onPress: async () => {
+          setProfileImage(null);
+          await AsyncStorage.removeItem('profileImage');
+        },
+        style: 'destructive',
+      },
       { text: 'Cancelar', style: 'cancel' },
     ]);
   };
@@ -117,8 +127,26 @@ export default function HomeScreen() {
     }).start();
   };
 
+  const handleExitPress = () => {
+    Alert.alert(
+      'Sair',
+      'Deseja voltar ao menu de login?',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Voltar ao Login',
+          onPress: () => navigation.reset({
+            index: 0,
+            routes: [{ name: 'Login' }],
+          }),
+          style: 'destructive'
+        },
+      ]
+    );
+  };
+
   const handlePress = (route: keyof RootStackParamList) => {
-    navigation.navigate(route);
+    navigation.navigate(route as any);
   };
 
   const renderShortcut = ({ item }: any) => (
@@ -148,16 +176,18 @@ export default function HomeScreen() {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Image source={require('../../assets/DrawerIcon.png')} style={styles.drawerIcon} />
+        <TouchableOpacity onPress={handleExitPress}>
+          <Image source={require('../../assets/DrawerIcon.png')} style={styles.drawerIcon} />
+        </TouchableOpacity>
         <Image source={require('../../assets/logoPequeno.png')} style={styles.logoPequeno} />
       </View>
 
       {/* Card do usuário */}
       <View style={styles.userCard}>
-        <Text style={styles.userName}>Olá, Nome</Text>
+        <Text style={styles.userName}>Olá, {clienteNome}</Text>
         <Text style={styles.userPlan}>PLANO DENTAL</Text>
-        <Text style={styles.userPlanNumber}>DENTAL XXX XX XXXXX</Text>
-        <Text style={styles.cardNumber}>n° carteirinha</Text>
+        <Text style={styles.userPlanNumber}>{plano || 'DENTAL 023 23 94294'}</Text>
+        <Text style={styles.cardNumber}>nº carteirinha: {carteirinha || '2408-45'}</Text>
 
         <TouchableOpacity style={styles.profileCircle} onPress={handleEditProfileImage}>
           {profileImage ? (

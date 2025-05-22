@@ -20,6 +20,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+
+  scoreRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 12,
+  },
+  coinIcon: {
+    width: 24,
+    height: 24,
+    marginRight: 8,
+    resizeMode: 'contain',
+  },
   icon: {
     width: 22,
     height: 22,

@@ -14,18 +14,19 @@ const styles = StyleSheet.create({
     width: '100%',
     height: height * 0.75,
     padding: 20,
+    paddingTop: 80,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   logo: {
-    width: width * 0.9, // Teste do logo proporcional 
+    width: width * 0.9,
     height: width * 0.3,
     resizeMode: 'contain',
-    marginBottom: 30,
+    marginBottom: 20,
   },
-  
+
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: 'center',
-    marginTop: 30,
+    marginTop: 60,
   },
   footerText: {
     color: '#FFF',

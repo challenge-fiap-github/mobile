@@ -21,6 +21,10 @@ export default function TarefasDiarias() {
     navigation.navigate('ChecklistDiario');
   };
 
+  const handleChecklistSemanalPress = () => {
+    navigation.navigate('ChecklistSemanal');
+  };
+
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -35,7 +39,7 @@ export default function TarefasDiarias() {
         <View style={{ width: 22 }} />
       </View>
 
-      {/* Card do usuário (exemplo) */}
+      {/* Card do usuário */}
       <View style={styles.userCard}>
         <View style={styles.userInfo}>
           <Text style={styles.userName}>Nome</Text>
@@ -59,7 +63,7 @@ export default function TarefasDiarias() {
           <Text style={styles.textButton}>Checklist{'\n'}diário</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.cardButton}>
+        <TouchableOpacity style={styles.cardButton} onPress={handleChecklistSemanalPress}>
           <Image
             source={require('../../assets/semanal.png')}
             style={styles.iconButton}

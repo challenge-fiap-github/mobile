@@ -1,14 +1,15 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/types'; // ajuste o caminho se estiver diferente
 import styles from './style';
 
 export default function Agendamento() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={require('../../assets/backIcon.png')} style={styles.icon} />
@@ -20,10 +21,11 @@ export default function Agendamento() {
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Selecione uma opção</Text>
 
-        {/* Card 1 */}
+        {/* Card 1 - NAVEGAÇÃO FUNCIONAL */}
         <TouchableOpacity
           style={styles.card}
           activeOpacity={0.7}
+          onPress={() => navigation.navigate('AgendamentoConsulta')}
         >
           <View style={styles.cardLeft}>
             <View style={styles.iconContainer}>

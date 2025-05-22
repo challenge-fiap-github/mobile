@@ -30,7 +30,7 @@ export default function SelecionarCidade() {
   };
 
   const handleSelecionarCidade = (cidade: string) => {
-    navigation.navigate('BuscarLocalidade', {
+    navigation.navigate('SelecionarBairro', {
       estadoSelecionado,
       cidadeSelecionada: cidade,
     });

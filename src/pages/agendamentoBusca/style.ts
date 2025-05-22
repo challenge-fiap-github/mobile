@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 6,
   },
-    inputBox: {
+  inputBox: {
     flexDirection: 'row',
     alignItems: 'center',
     borderColor: '#CCC',
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     height: 44,
     marginBottom: 12,
-},
+  },
 
   inputIcon: {
     width: 18,
@@ -75,11 +75,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
     resizeMode: 'contain',
   },
-    inputText: {
+  inputText: {
     fontSize: 14,
     color: '#444',
     flex: 1,
-    },
+  },
   buttonContinuar: {
     flexDirection: 'row',
     backgroundColor: '#0066FF',

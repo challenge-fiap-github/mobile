@@ -16,7 +16,10 @@ const horarios: HorarioItem[] = [
   { dia: '06/07/2025', semana: 'Terça-Feira', turno: 'tarde' },
   { dia: '06/07/2025', semana: 'Terça-Feira', turno: 'noite' },
   { dia: '07/07/2025', semana: 'Quarta-Feira', turno: 'manha' },
+  { dia: '07/07/2025', semana: 'Quarta-Feira', turno: 'tarde' },
   { dia: '07/07/2025', semana: 'Quarta-Feira', turno: 'noite' },
+  { dia: '08/07/2025', semana: 'Quinta-Feira', turno: 'manha' },
+  { dia: '08/07/2025', semana: 'Quinta-Feira', turno: 'tarde' },
 ];
 
 export default function AgendamentoResultado() {
@@ -34,6 +37,30 @@ export default function AgendamentoResultado() {
       </View>
     );
   };
+
+const renderFiltro = (
+  tipo: 'todos' | 'manha' | 'tarde' | 'noite',
+  label: string,
+  icon?: any
+) => {
+  const isSelected = filtro === tipo;
+  const isTodos = tipo === 'todos';
+
+  return (
+    <TouchableOpacity
+      onPress={() => setFiltro(tipo)}
+      style={[
+        styles.filtroBtn,
+        isSelected && styles.filtroBtnSelecionado,
+        isTodos && styles.filtroBtnTodos,
+      ]}
+      activeOpacity={0.9}
+    >
+      {!isTodos && <Image source={icon} style={styles.filtroIcon} />}
+      <Text style={styles.filtroText}>{label}</Text>
+    </TouchableOpacity>
+  );
+};
 
   return (
     <View style={styles.container}>
@@ -59,22 +86,10 @@ export default function AgendamentoResultado() {
 
       {/* FILTROS */}
       <View style={styles.filtros}>
-        <TouchableOpacity onPress={() => setFiltro('todos')} style={styles.filtroBtn}>
-          <Image source={require('../../assets/todosIcon.png')} style={styles.filtroIcon} />
-          <Text style={styles.filtroText}>Todos</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFiltro('manha')} style={styles.filtroBtn}>
-          <Image source={require('../../assets/manhaIcon.png')} style={styles.filtroIcon} />
-          <Text style={styles.filtroText}>Manhã</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFiltro('tarde')} style={styles.filtroBtn}>
-          <Image source={require('../../assets/tardeIcon.png')} style={styles.filtroIcon} />
-          <Text style={styles.filtroText}>Tarde</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFiltro('noite')} style={styles.filtroBtn}>
-          <Image source={require('../../assets/noiteIcon.png')} style={styles.filtroIcon} />
-          <Text style={styles.filtroText}>Noite</Text>
-        </TouchableOpacity>
+        {renderFiltro('todos', 'Todos', require('../../assets/todosIcon.png'))}
+        {renderFiltro('manha', 'Manhã', require('../../assets/manhaIcon.png'))}
+        {renderFiltro('tarde', 'Tarde', require('../../assets/tardeIcon.png'))}
+        {renderFiltro('noite', 'Noite', require('../../assets/noiteIcon.png'))}
       </View>
 
       {/* DATAS */}

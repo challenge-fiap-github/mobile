@@ -1,32 +1,51 @@
 export type RootStackParamList = {
+  // Telas principais
   Home: undefined;
-  BuscaRede: undefined;
   Game: undefined;
+  OdontoGame: undefined;
+  Consulta: undefined;
+
+  // Agendamento
   Agendamento: undefined;
   AgendamentoConsulta: undefined;
-  AgendamentoBusca: undefined;   
-  AgendamentoResultado: undefined; 
+  AgendamentoBusca: undefined;
+  AgendamentoResultado: undefined;
 
+  // Funcionalidades
+  BuscaRede: undefined;
   Cobertura: undefined;
   FaleConosco: undefined;
   DadosPessoais: undefined;
 
+  // Checklists
   ChecklistDiario: undefined;
-  ChecklistSemanal: undefined;         
+  ChecklistSemanal: undefined;
 
-  Quiz: undefined;                   
-  Premios: undefined;                 
+  // Gamificação
+  Quiz: undefined;
+  Premios: undefined;
+  TarefasDiarias: undefined;
+  PontuacaoConsulta: undefined;
 
+  // Autenticação
+  Login: undefined;
+  Cadastro: undefined;
+  PrimeiroAcesso: undefined;
+
+  
+
+  // Seleção de localização
   BuscarLocalidade: {
     estadoSelecionado?: string;
     cidadeSelecionada?: string;
+    bairroSelecionado?: string;
   };
   SelecionarEstado: undefined;
   SelecionarCidade: {
     estadoSelecionado: string;
   };
-
-  TarefasDiarias: undefined;
-  PontuacaoConsulta: undefined;
-  OdontoGame: undefined;
+  SelecionarBairro: {
+    estadoSelecionado: string;
+    cidadeSelecionada: string;
+  };
 };

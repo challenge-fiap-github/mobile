@@ -23,16 +23,28 @@ export default function AgendamentoConsulta() {
       </View>
 
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={styles.cardButton}>
+        {/* Botão 1: Próximos a mim */}
+        <TouchableOpacity
+          style={styles.cardButton}
+          onPress={() => navigation.navigate('AgendamentoBusca')}
+        >
           <Image source={require('../../assets/proximosIcon.png')} style={styles.icon} />
           <Text style={styles.cardTitle}>Próximos{'\n'}a mim</Text>
-          <Text style={styles.cardSubtitle}>Necessário{'\n'}localizador ativo no{'\n'}seu aparelho</Text>
+          <Text style={styles.cardSubtitle}>
+            Necessário{'\n'}localizador ativo no{'\n'}seu aparelho
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.cardButton}>
+        {/* Botão 2: Pesquisar por localidade */}
+        <TouchableOpacity
+          style={styles.cardButton}
+          onPress={() => navigation.navigate('AgendamentoBusca')}
+        >
           <Image source={require('../../assets/localidadeIcon.png')} style={styles.icon} />
           <Text style={styles.cardTitle}>Pesquisar por{'\n'}localidade</Text>
-          <Text style={styles.cardSubtitle}>Buscar por estado e{'\n'}região específica</Text>
+          <Text style={styles.cardSubtitle}>
+            Buscar por estado e{'\n'}região específica
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
