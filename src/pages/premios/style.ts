@@ -7,6 +7,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#E6E6E6',
   },
+
+  // Header (idêntico ao seu modelo)
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -31,9 +33,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginRight: 30,
   },
+
+  // Card do usuário
   userCard: {
     backgroundColor: '#FFF',
-    width: width,
+    width,
     marginTop: -15,
     height: 150,
     padding: 20,
@@ -41,15 +45,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
     elevation: 5,
   },
-  userInfo: {
-    flex: 1,
-  },
+  userInfo: { flex: 1 },
   userName: {
     fontSize: 16,
     fontWeight: 'bold',
@@ -67,9 +70,10 @@ const styles = StyleSheet.create({
   },
   moedaTexto: {
     fontSize: 18,
-    color: 'green',
+    color: '#1C3B8B',
     fontWeight: 'bold',
   },
+
   profileCircle: {
     width: 80,
     height: 80,
@@ -84,11 +88,43 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 40,
   },
+
   infoText: {
-    marginTop: 30,
+    marginTop: 16,
+    marginBottom: 8,
     fontSize: 15,
     textAlign: 'center',
     color: '#333',
+  },
+
+  // Lista de prêmios
+  listContainer: {
+    paddingHorizontal: 16,
+    paddingBottom: 16,
+  },
+  rewardItem: {
+    backgroundColor: '#F7F7F7',
+    borderRadius: 10,
+    paddingVertical: 16,
+    paddingHorizontal: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  rewardText: {
+    fontSize: 15.5,
+    color: '#0F172A',
+    fontWeight: '600',
+  },
+  chev: {
+    fontSize: 18,
+    color: '#94A3B8',
+    marginLeft: 12,
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#DADDE3',
+    marginVertical: 10,
   },
 });
 

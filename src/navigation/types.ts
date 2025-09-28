@@ -1,8 +1,8 @@
+// src/navigation/types.ts
 export type RootStackParamList = {
   // Telas principais
   Home: undefined;
-  Game: undefined;
-  OdontoGame: undefined;
+  Game: undefined;       
   Consulta: undefined;
 
   // Agendamento
@@ -32,8 +32,6 @@ export type RootStackParamList = {
   Cadastro: undefined;
   PrimeiroAcesso: undefined;
 
-  
-
   // Seleção de localização
   BuscarLocalidade: {
     estadoSelecionado?: string;
@@ -41,11 +39,6 @@ export type RootStackParamList = {
     bairroSelecionado?: string;
   };
   SelecionarEstado: undefined;
-  SelecionarCidade: {
-    estadoSelecionado: string;
-  };
-  SelecionarBairro: {
-    estadoSelecionado: string;
-    cidadeSelecionada: string;
-  };
+  SelecionarCidade: { estadoSelecionado: string };
+  SelecionarBairro: { estadoSelecionado: string; cidadeSelecionada: string };
 };

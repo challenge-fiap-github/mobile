@@ -1,96 +1,132 @@
+// src/pages/game/index.tsx
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import { View, Text, TouchableOpacity, Image, StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './style';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation/types';
 
-export default function OdontoGame() {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+type Nav = NativeStackNavigationProp<RootStackParamList, 'Game'>;
+
+const PONTOS_KEY = 'GamePoints';
+const FOTO_KEY = 'profileImage';
+const NOME_KEY = 'usuarioNome';
+
+export default function Game() {
+  const navigation = useNavigation<Nav>();
   const [pontos, setPontos] = useState(0);
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [nome, setNome] = useState<string>(''); // <- nome do usuário
+
+  function go<T extends keyof RootStackParamList>(
+    screen: T,
+    ...args: RootStackParamList[T] extends undefined ? [] : [RootStackParamList[T]]
+  ) {
+    navigation.navigate(screen as any, ...(args as [any]));
+  }
+
+  const loadData = async () => {
+    try {
+      const [storedPoints, storedUri, storedName] = await Promise.all([
+        AsyncStorage.getItem(PONTOS_KEY),
+        AsyncStorage.getItem(FOTO_KEY),
+        AsyncStorage.getItem(NOME_KEY),
+      ]);
+      const parsed = storedPoints ? parseInt(storedPoints, 10) : 0;
+      setPontos(Number.isNaN(parsed) ? 0 : parsed);
+      setProfileImage(storedUri ?? null);
+      setNome(storedName ?? ''); // fallback vazio (mostro “Usuário” abaixo)
+    } catch {
+      setPontos(0);
+      setProfileImage(null);
+      setNome('');
+    }
+  };
 
   useEffect(() => {
-    const loadPoints = async () => {
-      const stored = await AsyncStorage.getItem('GamePoints');
-      const parsed = stored ? parseInt(stored, 10) : 0;
-      setPontos(parsed);
-    };
-
-    const unsubscribe = navigation.addListener('focus', loadPoints);
-    loadPoints();
-    return unsubscribe;
+    const unsub = navigation.addListener('focus', loadData);
+    loadData();
+    return unsub;
   }, [navigation]);
 
-  const handleBackPress = () => {
-    navigation.navigate('Home');
-  };
-
-  const handleGoToTarefasDiarias = () => {
-    navigation.navigate('TarefasDiarias');
-  };
-
-  const handleGoToQuiz = () => {
-    navigation.navigate('Quiz');
-  };
-
-  const handleGoToConsultas = () => {
-    navigation.navigate('Consulta');
-  };
+  // Utilitário simples para exibir algo mesmo se não houver nome salvo
+  const nomeExibicao = nome && nome.trim().length > 0 ? nome : 'Usuário';
 
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={handleBackPress}>
-          <Image source={require('../../assets/backIcon.png')} style={styles.icon} />
+      <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
+
+      {/* HEADER */}
+      <View style={styles.topBar}>
+        <TouchableOpacity onPress={() => go('Home')}>
+          <Image source={require('../../assets/backIcon.png')} style={styles.navIcon} />
         </TouchableOpacity>
 
-        <Text style={styles.headerTitle}>Odonto Game</Text>
+        <Text style={styles.appTitle}>Odonto Game</Text>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-          <Image source={require('../../assets/homeIcon.png')} style={styles.icon} />
-        </TouchableOpacity>
-      </View>
-
-      {/* Pontuação com ícone */}
-      <View style={styles.scoreRow}>
-        <Image source={require('../../assets/odontoCoin.png')} style={styles.coinIcon} />
-        <Text style={styles.scoreX}>{pontos} pontos</Text>
-      </View>
-
-      {/* Botões principais */}
-      <View style={styles.buttonGrid}>
-        <TouchableOpacity style={styles.menuButton} onPress={handleGoToTarefasDiarias}>
-          <Image source={require('../../assets/tarefaIcon.png')} style={styles.menuIcon} />
-          <Text style={styles.menuText}>Tarefas diárias</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuButton} onPress={handleGoToConsultas}>
-          <Image source={require('../../assets/consultaIcon.png')} style={styles.menuIcon} />
-          <Text style={styles.menuText}>Consultas</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuButton} onPress={handleGoToQuiz}>
-          <Image source={require('../../assets/quizIcon.png')} style={styles.menuIcon} />
-          <Text style={styles.menuText}>Quiz</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuButton}>
-          <Image source={require('../../assets/premioIcon.png')} style={styles.menuIcon} />
-          <Text style={styles.menuText}>Premiações</Text>
+        <TouchableOpacity onPress={() => go('Home')}>
+          <Image source={require('../../assets/homeIcon.png')} style={styles.navIcon} />
         </TouchableOpacity>
       </View>
 
-      {/* Botão Tutorial */}
-      <TouchableOpacity style={styles.tutorialButton}>
-        <Text style={styles.tutorialText}>Tutorial</Text>
-      </TouchableOpacity>
+      {/* AVATAR SOBREPOSTO — mesma foto salva na Home */}
+      <View style={styles.avatarWrapper}>
+        {profileImage ? (
+          <Image source={{ uri: profileImage }} style={styles.avatarImg} />
+        ) : (
+          <View style={styles.avatar} />
+        )}
+      </View>
+
+      {/* BLOCO AZUL-CLARO + INFO */}
+      <View style={styles.headerBlock}>
+        <View style={styles.userInfo}>
+          <Text style={styles.greeting}>
+            Olá, <Text style={styles.greetingBold}>{nomeExibicao}</Text>
+          </Text>
+
+          <View style={styles.scoreRow}>
+            <Image source={require('../../assets/odontoCoin.png')} style={styles.coinIcon} />
+            <Text style={styles.scoreText}>{pontos} moedas</Text>
+          </View>
+        </View>
+      </View>
+
+      {/* MENU */}
+      <View style={styles.menuList}>
+        <TouchableOpacity onPress={() => go('TarefasDiarias')} style={styles.menuItem}>
+          <View style={styles.menuLeft}>
+            <Image source={require('../../assets/tarefaIcon.png')} style={styles.menuIcon} />
+            <Text style={styles.menuLabel}>Tarefas diárias</Text>
+          </View>
+          <Text style={styles.chev}>{'>'}</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => go('Quiz')} style={styles.menuItem}>
+          <View style={styles.menuLeft}>
+            <Image source={require('../../assets/quizIcon.png')} style={styles.menuIcon} />
+            <Text style={styles.menuLabel}>Quiz</Text>
+          </View>
+          <Text style={styles.chev}>{'>'}</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => go('Consulta')} style={styles.menuItem}>
+          <View style={styles.menuLeft}>
+            <Image source={require('../../assets/consultaIcon.png')} style={styles.menuIcon} />
+            <Text style={styles.menuLabel}>Pontos por consulta</Text>
+          </View>
+          <Text style={styles.chev}>{'>'}</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => go('Premios')} style={styles.menuItem}>
+          <View style={styles.menuLeft}>
+            <Image source={require('../../assets/premioIcon.png')} style={styles.menuIcon} />
+            <Text style={styles.menuLabel}>Troca de pontos</Text>
+          </View>
+          <Text style={styles.chev}>{'>'}</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

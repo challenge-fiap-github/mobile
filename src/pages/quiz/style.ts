@@ -1,10 +1,14 @@
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
+const CARD_PAD = 16;
+
+export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E6E6E6',
+    backgroundColor: '#C0D9FF',
   },
+
+  // === SEU MODELO DE HEADER (copiado) ===
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -29,27 +33,84 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginRight: 30,
   },
+
+  // CONTEÚDO
   content: {
     padding: 20,
     alignItems: 'center',
   },
+
+  // PERGUNTA
   question: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 22,
+    lineHeight: 30,
+    fontWeight: '700',
     textAlign: 'center',
-    marginBottom: 30,
+    color: '#0A0A0A',
+    marginBottom: 20,
   },
+
+  // CARTÃO BRANCO DAS OPÇÕES
+  optionsCard: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    padding: CARD_PAD,
+
+    // sombra suave
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 4,
+  },
+
+  // OPÇÃO (pílula cinza)
   option: {
     backgroundColor: '#D9D9D9',
-    padding: 16,
+    paddingVertical: 14,
+    paddingHorizontal: 14,
     borderRadius: 12,
-    marginBottom: 15,
-    width: '100%',
+    marginBottom: 12,
   },
   optionText: {
     fontSize: 16,
     color: '#000',
   },
-});
 
-export default styles;
+  // RESULTADO
+  resultCard: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    padding: CARD_PAD,
+    alignItems: 'center',
+
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 4,
+  },
+  resultTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    marginBottom: 12,
+  },
+  resultLine: {
+    fontSize: 18,
+    marginTop: 6,
+  },
+  primaryBtn: {
+    marginTop: 16,
+    backgroundColor: '#0A62FF',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 10,
+  },
+  primaryBtnText: {
+    color: '#FFF',
+    fontWeight: '700',
+    fontSize: 16,
+  },
+});
