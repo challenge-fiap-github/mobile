@@ -1,4 +1,3 @@
-// src/pages/game/index.tsx
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -17,7 +16,7 @@ export default function Game() {
   const navigation = useNavigation<Nav>();
   const [pontos, setPontos] = useState(0);
   const [profileImage, setProfileImage] = useState<string | null>(null);
-  const [nome, setNome] = useState<string>(''); // <- nome do usuário
+  const [nome, setNome] = useState<string>('');
 
   function go<T extends keyof RootStackParamList>(
     screen: T,
@@ -36,7 +35,7 @@ export default function Game() {
       const parsed = storedPoints ? parseInt(storedPoints, 10) : 0;
       setPontos(Number.isNaN(parsed) ? 0 : parsed);
       setProfileImage(storedUri ?? null);
-      setNome(storedName ?? ''); // fallback vazio (mostro “Usuário” abaixo)
+      setNome(storedName ?? '');
     } catch {
       setPontos(0);
       setProfileImage(null);
@@ -50,7 +49,6 @@ export default function Game() {
     return unsub;
   }, [navigation]);
 
-  // Utilitário simples para exibir algo mesmo se não houver nome salvo
   const nomeExibicao = nome && nome.trim().length > 0 ? nome : 'Usuário';
 
   return (
@@ -111,7 +109,7 @@ export default function Game() {
           <Text style={styles.chev}>{'>'}</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => go('Consulta')} style={styles.menuItem}>
+        <TouchableOpacity onPress={() => go('PontuacaoConsulta')} style={styles.menuItem}>
           <View style={styles.menuLeft}>
             <Image source={require('../../assets/consultaIcon.png')} style={styles.menuIcon} />
             <Text style={styles.menuLabel}>Pontos por consulta</Text>

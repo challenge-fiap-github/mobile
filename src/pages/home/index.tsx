@@ -1,3 +1,4 @@
+// src/pages/home/index.tsx
 import React, { useRef, useState, useEffect } from 'react';
 import {
   View,
@@ -10,8 +11,9 @@ import {
   Dimensions,
   Alert,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import styles from './style';
-import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation/types';
 import * as ImagePicker from 'expo-image-picker';
@@ -30,12 +32,14 @@ const shortcuts: { icon: any; label: string; route: keyof RootStackParamList; cu
 
 const bottomTabs = [
   { key: 'Inicio', icon: require('../../assets/inicioIcon.png'), label: 'Início' },
-  { key: 'Plano', icon: require('../../assets/planoIcon.png'), label: 'Plano' },
-  { key: 'Token', icon: require('../../assets/tokenIcon.png'), label: 'Token' },
+  { key: 'Plano', icon: require('../../assets/planoIcon.png'), label: 'Plano' },   // abre DadosPessoais
+  { key: 'Token', icon: require('../../assets/tokenIcon.png'), label: 'Token' },   // abre TokenConsulta
 ];
 
 export default function HomeScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
+  const insets = useSafeAreaInsets();
+
   const [activeTab, setActiveTab] = useState('Inicio');
   const scale = useRef(new Animated.Value(1)).current;
 
@@ -43,6 +47,13 @@ export default function HomeScreen() {
   const [clienteNome, setClienteNome] = useState('');
   const [carteirinha, setCarteirinha] = useState('');
   const [plano, setPlano] = useState('');
+
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setActiveTab('Inicio');
+    }, [])
+  );
 
   useEffect(() => {
     const loadInfo = async () => {
@@ -65,14 +76,12 @@ export default function HomeScreen() {
       alert('Permissão negada para acessar fotos!');
       return;
     }
-
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
     });
-
     if (!result.canceled && result.assets.length > 0) {
       const uri = result.assets[0].uri;
       setProfileImage(uri);
@@ -114,35 +123,25 @@ export default function HomeScreen() {
   }, [currentIndex]);
 
   const handlePressIn = () => {
-    Animated.spring(scale, {
-      toValue: 0.93,
-      useNativeDriver: true,
-    }).start();
+    Animated.spring(scale, { toValue: 0.93, useNativeDriver: true }).start();
   };
-
   const handlePressOut = () => {
-    Animated.spring(scale, {
-      toValue: 1,
-      useNativeDriver: true,
-    }).start();
+    Animated.spring(scale, { toValue: 1, useNativeDriver: true }).start();
   };
 
   const handleExitPress = () => {
-    Alert.alert(
-      'Sair',
-      'Deseja voltar ao menu de login?',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Voltar ao Login',
-          onPress: () => navigation.reset({
+    Alert.alert('Sair', 'Deseja voltar ao menu de login?', [
+      { text: 'Cancelar', style: 'cancel' },
+      {
+        text: 'Voltar ao Login',
+        onPress: () =>
+          navigation.reset({
             index: 0,
             routes: [{ name: 'Login' }],
           }),
-          style: 'destructive'
-        },
-      ]
-    );
+        style: 'destructive',
+      },
+    ]);
   };
 
   const handlePress = (route: keyof RootStackParamList) => {
@@ -160,11 +159,7 @@ export default function HomeScreen() {
         <View style={styles.quickButton}>
           <Image
             source={item.icon}
-            style={
-              item.customSize
-                ? { width: item.customSize, height: item.customSize }
-                : styles.quickIcon
-            }
+            style={item.customSize ? { width: item.customSize, height: item.customSize } : styles.quickIcon}
           />
         </View>
         <Text style={styles.quickText}>{item.label}</Text>
@@ -193,10 +188,7 @@ export default function HomeScreen() {
           {profileImage ? (
             <Image source={{ uri: profileImage }} style={styles.profileImage} />
           ) : (
-            <Image
-              source={require('../../assets/fotoPerfil.png')}
-              style={styles.cameraIconOnly}
-            />
+            <Image source={require('../../assets/fotoPerfil.png')} style={styles.cameraIconOnly} />
           )}
         </TouchableOpacity>
       </View>
@@ -239,14 +231,26 @@ export default function HomeScreen() {
       </ScrollView>
 
       {/* Bottom Tab */}
-      <View style={styles.bottomTabContainer}>
+      <View style={[styles.bottomTabContainer, { marginBottom: Math.max(32, insets.bottom + 20) }]}>
         {bottomTabs.map((tab) => {
           const isActive = activeTab === tab.key;
+
+          const handleTabPress = () => {
+            setActiveTab(tab.key);
+
+            if (tab.key === 'Plano') {
+              navigation.navigate('DadosPessoais');
+            } else if (tab.key === 'Token') {
+              navigation.navigate('TokenConsulta');
+            }
+          
+          };
+
           return (
             <TouchableOpacity
               key={tab.key}
               style={[styles.tabItem, isActive && styles.tabItemActive]}
-              onPress={() => setActiveTab(tab.key)}
+              onPress={handleTabPress}
               activeOpacity={0.8}
             >
               <Image source={tab.icon} style={styles.tabIcon} />

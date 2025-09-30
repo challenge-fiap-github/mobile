@@ -2,7 +2,7 @@
 export type RootStackParamList = {
   // Telas principais
   Home: undefined;
-  Game: undefined;       
+  Game: undefined;
   Consulta: undefined;
 
   // Agendamento
@@ -10,12 +10,14 @@ export type RootStackParamList = {
   AgendamentoConsulta: undefined;
   AgendamentoBusca: undefined;
   AgendamentoResultado: undefined;
+  MeusAgendamentos: undefined;
 
   // Funcionalidades
   BuscaRede: undefined;
   Cobertura: undefined;
   FaleConosco: undefined;
   DadosPessoais: undefined;
+  TokenConsulta: undefined;
 
   // Checklists
   ChecklistDiario: undefined;

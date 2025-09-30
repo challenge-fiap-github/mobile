@@ -10,6 +10,7 @@ export default function Agendamento() {
 
   return (
     <View style={styles.container}>
+      {/* HEADER */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={require('../../assets/backIcon.png')} style={styles.icon} />
@@ -21,7 +22,7 @@ export default function Agendamento() {
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Selecione uma opção</Text>
 
-        {/* Card 1 - NAVEGAÇÃO FUNCIONAL */}
+        {/* Card 1 - Agendar consulta */}
         <TouchableOpacity
           style={styles.card}
           activeOpacity={0.7}
@@ -36,15 +37,18 @@ export default function Agendamento() {
             </View>
             <View>
               <Text style={styles.cardTitle}>Agendar primeira{'\n'}consulta de avaliação</Text>
-              <Text style={styles.cardSubtitle}>Consulta inicial com o dentista para{'\n'}avaliação</Text>
+              <Text style={styles.cardSubtitle}>
+                Consulta inicial com o dentista para{'\n'}avaliação
+              </Text>
             </View>
           </View>
         </TouchableOpacity>
 
-        {/* Card 2 */}
+        {/* Card 2 - Meus agendamentos */}
         <TouchableOpacity
           style={styles.card}
           activeOpacity={0.7}
+          onPress={() => navigation.navigate('MeusAgendamentos')}
         >
           <View style={styles.cardLeft}>
             <View style={styles.iconContainer}>

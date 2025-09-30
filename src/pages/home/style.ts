@@ -57,30 +57,28 @@ const styles = StyleSheet.create({
     color: '#666',
     marginTop: 8,
   },
-profileCircle: {
-  position: 'absolute',
-  right: 20,
-  top: 20,
-  width: 80,
-  height: 80,
-  borderRadius: 40,
-  backgroundColor: '#DDD',
-  overflow: 'hidden',
-  alignItems: 'center',
-  justifyContent: 'center',
-},
-
-cameraIconOnly: {
-  width: 80,
-  height: 80,
-  resizeMode: 'contain',
-},
-
-profileImage: {
-  width: 80,
-  height: 80,
-  borderRadius: 40,
-},
+  profileCircle: {
+    position: 'absolute',
+    right: 20,
+    top: 20,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#DDD',
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cameraIconOnly: {
+    width: 80,
+    height: 80,
+    resizeMode: 'contain',
+  },
+  profileImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+  },
   accessText: {
     fontSize: 16,
     fontWeight: 'bold',
@@ -116,40 +114,38 @@ profileImage: {
     textAlign: 'center',
     maxWidth: 80,
   },
-bottomTabContainer: {
-  flexDirection: 'row',
-  backgroundColor: '#002255',
-  borderRadius: 50,
-  marginHorizontal: 30,
-  marginBottom: 25,
-  paddingVertical: 10,
-  justifyContent: 'space-between',
-  paddingHorizontal: 25,
-  alignItems: 'center',
-},
-tabItem: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  paddingHorizontal: 20,
-  paddingVertical: 10,
-  borderRadius: 30,
-},
-tabItemActive: {
-  backgroundColor: '#0066FF',
-  paddingHorizontal: 20,
-  paddingVertical: 12,
-},
-tabIcon: {
-  width: 24,
-  height: 24,
-  tintColor: '#FFF',
-},
-tabLabel: {
-  color: '#FFF',
-  marginLeft: 8,
-  fontSize: 14,
-},
-  
+  bottomTabContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#002255',
+    borderRadius: 50,
+    marginHorizontal: 30,
+    paddingVertical: 10,
+    justifyContent: 'space-between',
+    paddingHorizontal: 25,
+    alignItems: 'center',
+  },
+  tabItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 30,
+  },
+  tabItemActive: {
+    backgroundColor: '#0066FF',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+  },
+  tabIcon: {
+    width: 24,
+    height: 24,
+    tintColor: '#FFF',
+  },
+  tabLabel: {
+    color: '#FFF',
+    marginLeft: 8,
+    fontSize: 14,
+  },
 });
 
 export default styles;

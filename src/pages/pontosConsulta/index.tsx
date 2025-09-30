@@ -1,40 +1,66 @@
-// src/pages/pontuacao/index.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   View,
   Text,
   Image,
   TouchableOpacity,
-  ScrollView
+  FlatList,
 } from 'react-native';
 import styles from './style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../../navigation/types';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/types';
 
-export default function PontuacaoConsulta() {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+type Nav = NativeStackNavigationProp<RootStackParamList, 'Consulta'>;
+
+const PONTOS_KEY = 'GamePoints';
+const FOTO_KEY   = 'profileImage';
+const NOME_KEY   = 'usuarioNome';
+
+const consultas = [
+  { doutor: 'Dr. nome do doutor', tipo: 'Consulta limpeza',   pontos: 200, data: '24/02/2025' },
+  { doutor: 'Dr. nome do doutor', tipo: 'Consulta limpeza',   pontos: 200, data: '12/07/2024' },
+  { doutor: 'Dr. nome do doutor', tipo: 'Consulta periódica', pontos: 150, data: '22/06/2024' },
+];
+
+export default function Consulta() {
+  const navigation = useNavigation<Nav>();
+
   const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [nome, setNome] = useState<string>('');
+  const [pontos, setPontos] = useState<number>(0);
 
-  useEffect(() => {
-    const loadImage = async () => {
-      const uri = await AsyncStorage.getItem('profileImage');
-      if (uri) setProfileImage(uri);
-    };
-    loadImage();
+  const loadData = useCallback(async () => {
+    try {
+      const [storedPoints, storedUri, storedName] = await Promise.all([
+        AsyncStorage.getItem(PONTOS_KEY),
+        AsyncStorage.getItem(FOTO_KEY),
+        AsyncStorage.getItem(NOME_KEY),
+      ]);
+      const parsed = storedPoints ? parseInt(storedPoints, 10) : 0;
+      setPontos(Number.isNaN(parsed) ? 0 : parsed);
+      setProfileImage(storedUri ?? null);
+      setNome(storedName ?? '');
+    } catch (_e) {
+      setPontos(0);
+      setProfileImage(null);
+      setNome('');
+    }
   }, []);
 
-  const handleBackPress = () => {
-    navigation.goBack();
-  };
+  useEffect(() => { loadData(); }, [loadData]);
+  useFocusEffect(React.useCallback(() => { loadData(); }, [loadData]));
+
+  const handleBackPress = () => navigation.navigate('Game');
+  const nomeExibicao = nome?.trim() ? nome : 'Usuário';
 
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBackPress}>
-          <Image source={require('../../assets/backIcon.png')} style={styles.icon} />
+          <Image source={require('../../assets/backIcon.png')} style={styles.backIcon} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Pontos de consulta</Text>
         <View style={{ width: 22 }} />
@@ -42,32 +68,42 @@ export default function PontuacaoConsulta() {
 
       {/* Card do usuário */}
       <View style={styles.userCard}>
-        <View>
-          <Text style={styles.userName}>Nome</Text>
-          <Text style={styles.userScore}>Pontuação: xxxxx</Text>
+        <View style={styles.userInfo}>
+          <Text style={styles.userName}>{nomeExibicao}</Text>
+          <Text style={styles.userScore}>Pontuação: {pontos}</Text>
         </View>
-        {profileImage ? (
-          <Image source={{ uri: profileImage }} style={styles.profileImage} />
-        ) : (
-          <Image source={require('../../assets/fotoPerfil.png')} style={styles.profileImage} />
-        )}
+
+        {/* avatar: usa foto salva ou fallback */}
+        <View style={styles.profileCircle}>
+          {profileImage ? (
+            <Image source={{ uri: profileImage }} style={styles.profileImage} />
+          ) : (
+            <Image source={require('../../assets/fotoPerfil.png')} style={styles.profileImage} />
+          )}
+        </View>
       </View>
 
-      {/* Lista de Pontuação (simulado) */}
-      <ScrollView style={styles.scrollArea}>
-        {[1, 2, 3].map((item, index) => (
-          <View key={index} style={styles.pointCard}>
-            <View>
-              <Text style={styles.doctorName}>Dr. nome do doutor</Text>
-              <Text style={styles.procedure}>Consulta limpeza</Text>
+      {/* Lista de pontos */}
+      <FlatList
+        data={consultas}
+        keyExtractor={(_, index) => index.toString()}
+        contentContainerStyle={styles.consultaList}
+        renderItem={({ item }) => (
+          <View style={styles.consultaItem}>
+            <View style={styles.consultaInfo}>
+              <Text style={styles.doutor}>{item.doutor}</Text>
+              <Text style={styles.tipo}>{item.tipo}</Text>
+              <Text style={styles.data}>{item.data}</Text>
             </View>
-            <View style={styles.pointRight}>
-              <Text style={styles.points}>+200</Text>
-              <Text style={styles.date}>24/02/2025</Text>
+            <View style={styles.pontosBox}>
+              <Text style={styles.pontos}>
+                Pontos: <Text style={{ color: 'green' }}>+{item.pontos}</Text>
+              </Text>
             </View>
           </View>
-        ))}
-      </ScrollView>
+        )}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+      />
     </View>
   );
 }

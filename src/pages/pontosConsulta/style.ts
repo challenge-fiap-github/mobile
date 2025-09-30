@@ -1,4 +1,3 @@
-// src/pages/pontuacao/style.ts
 import { StyleSheet, Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window');
@@ -14,78 +13,102 @@ const styles = StyleSheet.create({
     backgroundColor: '#0066FF',
     paddingTop: 50,
     paddingHorizontal: 20,
-    paddingBottom: 15,
-    justifyContent: 'space-between',
+    paddingBottom: 30,
   },
-  icon: {
-    width: 22,
-    height: 22,
+  backIcon: {
+    width: 20,
+    height: 20,
     tintColor: '#FFF',
+    marginRight: 10,
   },
   headerTitle: {
-    color: '#FFF',
+    flex: 1,
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#FFF',
+    textAlign: 'center',
+    marginRight: 30,
   },
   userCard: {
     backgroundColor: '#FFF',
-    margin: 20,
+    width: width,
+    marginTop: -20,
     padding: 20,
-    borderRadius: 16,
-    height: 140, // altura maior
+    borderRadius: 20,
+    height: 150,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 5,
+  },
+  userInfo: {
+    flex: 1,
   },
   userName: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 5,
+    marginBottom: 4,
   },
   userScore: {
-    fontSize: 14,
-    color: '#555',
+    fontSize: 13,
+    color: '#666',
+  },
+  profileCircle: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#DDD',
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   profileImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#DDD',
+    width: 80,
+    height: 80,
+    borderRadius: 40,
   },
-  scrollArea: {
-    flex: 1,
-    paddingHorizontal: 20,
+  consultaList: {
+    paddingHorizontal: 16,
+    paddingTop: 20,
   },
-  pointCard: {
-    backgroundColor: '#FFF',
-    borderRadius: 12,
-    padding: 15,
+  consultaItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 15,
-    borderBottomWidth: 1,
-    borderColor: '#C6C6C6',
+    alignItems: 'center',
+    backgroundColor: '#FFF',
+    padding: 12,
+    borderRadius: 12,
   },
-  doctorName: {
+  consultaInfo: {
+    flex: 1,
+  },
+  doutor: {
     fontWeight: 'bold',
     fontSize: 14,
-    marginBottom: 2,
   },
-  procedure: {
+  tipo: {
     fontSize: 13,
-    color: '#444',
+    color: '#666',
+    marginTop: 2,
   },
-  pointRight: {
-    alignItems: 'flex-end',
-  },
-  points: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'green',
-  },
-  date: {
+  data: {
     fontSize: 12,
-    color: '#333',
+    color: '#888',
+    marginTop: 4,
+  },
+  pontosBox: {
+    marginLeft: 16,
+  },
+  pontos: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  separator: {
+    height: 10,
   },
 });
 

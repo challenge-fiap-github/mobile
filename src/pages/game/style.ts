@@ -62,7 +62,6 @@ export default StyleSheet.create({
     borderColor: '#FFFFFF',
   },
 
-  // Versão com imagem vinda do AsyncStorage (profileImage)
   avatarImg: {
     width: AVATAR,
     height: AVATAR,
@@ -70,7 +69,7 @@ export default StyleSheet.create({
     borderWidth: 3,
     borderColor: '#FFFFFF',
     resizeMode: 'cover',
-    backgroundColor: '#D9D9D9', // fallback enquanto carrega
+    backgroundColor: '#D9D9D9',
   },
 
   /** BLOCO AZUL-CLARO logo abaixo do azul escuro */
