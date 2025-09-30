@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 
+import SplashScreen from "./src/pages/splashScreen";
 import Home from "./src/pages/home";
 import BuscaRede from "./src/pages/buscaRede";
 import Game from "./src/pages/game";
@@ -26,18 +27,19 @@ import Cadastro from "./src/pages/cadastro";
 import Premios from "./src/pages/premios";
 import Quiz from "./src/pages/quiz";
 import SelecionarBairro from "./src/pages/selecioneBairro";
-import Consulta from "./src/pages/pontosConsulta";
-import TokenConsulta from './src/pages/tokenConsulta';
+import TokenConsulta from "./src/pages/tokenConsulta";
 
 import { RootStackParamList } from "./src/navigation/types";
-
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
     <NavigationContainer>
       <StatusBar style="light" backgroundColor="#0066FF" />
-      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }}>
+        {/* Splash */}
+        <Stack.Screen name="Splash" component={SplashScreen} />
+
         {/* Autenticação */}
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Cadastro" component={Cadastro} />
@@ -45,7 +47,6 @@ export default function App() {
         {/* Principais */}
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Game" component={Game} />
-        <Stack.Screen name="Consulta" component={Consulta} />
 
         {/* Agendamento */}
         <Stack.Screen name="Agendamento" component={Agendamento} />

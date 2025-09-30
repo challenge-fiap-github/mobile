@@ -1,9 +1,9 @@
-// src/navigation/types.ts
 export type RootStackParamList = {
   // Telas principais
+  Splash: undefined;          // ✅ rota da splash
   Home: undefined;
   Game: undefined;
-  Consulta: undefined;
+  Consulta: undefined;        // (ok manter se ainda existir em outras partes)
 
   // Agendamento
   Agendamento: undefined;
