@@ -173,9 +173,21 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   diaSelected: { color: AZUL },
+
+  // ===== Hora (novo) =====
+  hora: {
+    marginTop: 4,
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#1F2937',
+    textAlign: 'center',
+  },
+  horaSelected: {
+    color: AZUL,
+  },
+
   turno: { marginTop: 6, fontSize: 12, color: '#666' },
   turnoSelected: { color: AZUL, fontWeight: 'bold' },
-
 
   footer: {
     position: 'absolute',

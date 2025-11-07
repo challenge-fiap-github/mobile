@@ -12,17 +12,18 @@ type HorarioItem = {
   dia: string;
   semana: string;
   turno: 'manha' | 'tarde' | 'noite';
+  hora: string; // novo campo
 };
 
 const horarios: HorarioItem[] = [
-  { dia: '06/07/2025', semana: 'Terça-Feira', turno: 'manha' },
-  { dia: '06/07/2025', semana: 'Terça-Feira', turno: 'tarde' },
-  { dia: '06/07/2025', semana: 'Terça-Feira', turno: 'noite' },
-  { dia: '07/07/2025', semana: 'Quarta-Feira', turno: 'manha' },
-  { dia: '07/07/2025', semana: 'Quarta-Feira', turno: 'tarde' },
-  { dia: '07/07/2025', semana: 'Quarta-Feira', turno: 'noite' },
-  { dia: '08/07/2025', semana: 'Quinta-Feira', turno: 'manha' },
-  { dia: '08/07/2025', semana: 'Quinta-Feira', turno: 'tarde' },
+  { dia: '06/07/2025', semana: 'Terça-Feira', turno: 'manha', hora: '08:40' },
+  { dia: '06/07/2025', semana: 'Terça-Feira', turno: 'tarde', hora: '15:20' },
+  { dia: '06/07/2025', semana: 'Terça-Feira', turno: 'noite', hora: '19:10' },
+  { dia: '07/07/2025', semana: 'Quarta-Feira', turno: 'manha', hora: '09:15' },
+  { dia: '07/07/2025', semana: 'Quarta-Feira', turno: 'tarde', hora: '14:05' },
+  { dia: '07/07/2025', semana: 'Quarta-Feira', turno: 'noite', hora: '20:00' },
+  { dia: '08/07/2025', semana: 'Quinta-Feira', turno: 'manha', hora: '07:55' },
+  { dia: '08/07/2025', semana: 'Quinta-Feira', turno: 'tarde', hora: '16:40' },
 ];
 
 export default function AgendamentoResultado() {
@@ -33,14 +34,14 @@ export default function AgendamentoResultado() {
   const handleBack = () => navigation.goBack();
 
   const mesmaData = (a: HorarioItem | null, b: HorarioItem) =>
-    !!a && a.dia === b.dia && a.semana === b.semana && a.turno === b.turno;
+    !!a && a.dia === b.dia && a.semana === b.semana && a.turno === b.turno && a.hora === b.hora;
 
   const handleAgendar = () => {
     if (!selecionado) return;
 
     Alert.alert(
       'Deseja agendar?',
-      `${selecionado.semana} • ${selecionado.dia} (${selecionado.turno})`,
+      `${selecionado.semana} • ${selecionado.dia} às ${selecionado.hora} (${selecionado.turno})`,
       [
         { text: 'Cancelar', style: 'cancel' },
         {
@@ -110,7 +111,7 @@ export default function AgendamentoResultado() {
     );
   };
 
-  // ---- Card de data/semana/turno (toggle de seleção) ----
+  // ---- Card de data/semana/turno/hora (toggle de seleção) ----
   const renderCard: ListRenderItem<HorarioItem> = ({ item }) => {
     if (filtro !== 'todos' && item.turno !== filtro) return null;
 
@@ -126,6 +127,7 @@ export default function AgendamentoResultado() {
       >
         <Text style={[styles.semana, isSel && styles.semanaSelected]}>{item.semana}</Text>
         <Text style={[styles.dia, isSel && styles.diaSelected]}>{item.dia}</Text>
+        <Text style={[styles.hora, isSel && styles.horaSelected]}>{item.hora}</Text>
         <Text style={[styles.turno, isSel && styles.turnoSelected]}>
           {item.turno.toUpperCase()}
         </Text>
@@ -166,7 +168,7 @@ export default function AgendamentoResultado() {
       {/* DATAS */}
       <FlatList
         data={horarios}
-        keyExtractor={(item, idx) => `${item.dia}-${item.turno}-${idx}`}
+        keyExtractor={(item, idx) => `${item.dia}-${item.turno}-${item.hora}-${idx}`}
         renderItem={renderCard}
         contentContainerStyle={styles.listaDatas}
         horizontal

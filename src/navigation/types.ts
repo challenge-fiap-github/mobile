@@ -1,9 +1,11 @@
+// src/navigation/types.ts
+
 export type RootStackParamList = {
   // Telas principais
-  Splash: undefined;          // ✅ rota da splash
+  Splash: undefined;
   Home: undefined;
   Game: undefined;
-  Consulta: undefined;        // (ok manter se ainda existir em outras partes)
+  Consulta: undefined;
 
   // Agendamento
   Agendamento: undefined;
@@ -13,7 +15,6 @@ export type RootStackParamList = {
   MeusAgendamentos: undefined;
 
   // Funcionalidades
-  BuscaRede: undefined;
   Cobertura: undefined;
   FaleConosco: undefined;
   DadosPessoais: undefined;
@@ -35,6 +36,8 @@ export type RootStackParamList = {
   PrimeiroAcesso: undefined;
 
   // Seleção de localização
+  BuscaRede: undefined;
+  Clinica: undefined;
   BuscarLocalidade: {
     estadoSelecionado?: string;
     cidadeSelecionada?: string;

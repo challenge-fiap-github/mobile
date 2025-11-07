@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StatusBar } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StatusBar,
+  ScrollView,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './style';
 import { useNavigation } from '@react-navigation/native';
@@ -32,6 +39,7 @@ export default function Game() {
         AsyncStorage.getItem(FOTO_KEY),
         AsyncStorage.getItem(NOME_KEY),
       ]);
+
       const parsed = storedPoints ? parseInt(storedPoints, 10) : 0;
       setPontos(Number.isNaN(parsed) ? 0 : parsed);
       setProfileImage(storedUri ?? null);
@@ -49,26 +57,37 @@ export default function Game() {
     return unsub;
   }, [navigation]);
 
-  const nomeExibicao = nome && nome.trim().length > 0 ? nome : 'Usuário';
+  const nomeExibicao =
+    nome && nome.trim().length > 0 ? nome : 'Usuário';
 
   return (
     <View style={styles.container}>
-      <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle="light-content"
+      />
 
-      {/* HEADER */}
+      {/* HEADER FIXO */}
       <View style={styles.topBar}>
         <TouchableOpacity onPress={() => go('Home')}>
-          <Image source={require('../../assets/backIcon.png')} style={styles.navIcon} />
+          <Image
+            source={require('../../assets/backIcon.png')}
+            style={styles.navIcon}
+          />
         </TouchableOpacity>
 
         <Text style={styles.appTitle}>Odonto Game</Text>
 
         <TouchableOpacity onPress={() => go('Home')}>
-          <Image source={require('../../assets/homeIcon.png')} style={styles.navIcon} />
+          <Image
+            source={require('../../assets/homeIcon.png')}
+            style={styles.navIcon}
+          />
         </TouchableOpacity>
       </View>
 
-      {/* AVATAR SOBREPOSTO — mesma foto salva na Home */}
+      {/* AVATAR SOBREPOSTO */}
       <View style={styles.avatarWrapper}>
         {profileImage ? (
           <Image source={{ uri: profileImage }} style={styles.avatarImg} />
@@ -77,7 +96,7 @@ export default function Game() {
         )}
       </View>
 
-      {/* BLOCO AZUL-CLARO + INFO */}
+      {/* BLOCO AZUL CLARO + INFO */}
       <View style={styles.headerBlock}>
         <View style={styles.userInfo}>
           <Text style={styles.greeting}>
@@ -85,45 +104,117 @@ export default function Game() {
           </Text>
 
           <View style={styles.scoreRow}>
-            <Image source={require('../../assets/odontoCoin.png')} style={styles.coinIcon} />
+            <Image
+              source={require('../../assets/odontoCoin.png')}
+              style={styles.coinIcon}
+            />
             <Text style={styles.scoreText}>{pontos} moedas</Text>
           </View>
         </View>
       </View>
 
-      {/* MENU */}
-      <View style={styles.menuList}>
-        <TouchableOpacity onPress={() => go('TarefasDiarias')} style={styles.menuItem}>
-          <View style={styles.menuLeft}>
-            <Image source={require('../../assets/tarefaIcon.png')} style={styles.menuIcon} />
-            <Text style={styles.menuLabel}>Tarefas diárias</Text>
-          </View>
-          <Text style={styles.chev}>{'>'}</Text>
-        </TouchableOpacity>
+      {/* MENU ROLÁVEL */}
+      <View style={styles.menuContainer}>
+        <ScrollView
+          contentContainerStyle={styles.menuList}
+          showsVerticalScrollIndicator={false}
+        >
+          {/* Tarefas diárias */}
+          <TouchableOpacity
+            onPress={() => go('TarefasDiarias')}
+            style={styles.menuItem}
+          >
+            <View style={styles.menuLeft}>
+              <Image
+                source={require('../../assets/tarefaIcon.png')}
+                style={styles.menuIcon}
+              />
+              <Text style={styles.menuLabel}>Tarefas diárias</Text>
+            </View>
+            <Text style={styles.chev}>{'>'}</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => go('Quiz')} style={styles.menuItem}>
-          <View style={styles.menuLeft}>
-            <Image source={require('../../assets/quizIcon.png')} style={styles.menuIcon} />
-            <Text style={styles.menuLabel}>Quiz</Text>
-          </View>
-          <Text style={styles.chev}>{'>'}</Text>
-        </TouchableOpacity>
+          {/* Quiz */}
+          <TouchableOpacity
+            onPress={() => go('Quiz')}
+            style={styles.menuItem}
+          >
+            <View style={styles.menuLeft}>
+              <Image
+                source={require('../../assets/quizIcon.png')}
+                style={styles.menuIcon}
+              />
+              <Text style={styles.menuLabel}>Quiz</Text>
+            </View>
+            <Text style={styles.chev}>{'>'}</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => go('PontuacaoConsulta')} style={styles.menuItem}>
-          <View style={styles.menuLeft}>
-            <Image source={require('../../assets/consultaIcon.png')} style={styles.menuIcon} />
-            <Text style={styles.menuLabel}>Pontos por consulta</Text>
-          </View>
-          <Text style={styles.chev}>{'>'}</Text>
-        </TouchableOpacity>
+          {/* Pontos por consulta */}
+          <TouchableOpacity
+            onPress={() => go('PontuacaoConsulta')}
+            style={styles.menuItem}
+          >
+            <View style={styles.menuLeft}>
+              <Image
+                source={require('../../assets/consultaIcon.png')}
+                style={styles.menuIcon}
+              />
+              <Text style={styles.menuLabel}>Pontos por consulta</Text>
+            </View>
+            <Text style={styles.chev}>{'>'}</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => go('Premios')} style={styles.menuItem}>
-          <View style={styles.menuLeft}>
-            <Image source={require('../../assets/premioIcon.png')} style={styles.menuIcon} />
-            <Text style={styles.menuLabel}>Troca de pontos</Text>
-          </View>
-          <Text style={styles.chev}>{'>'}</Text>
-        </TouchableOpacity>
+          {/* Desafios */}
+          <TouchableOpacity
+            onPress={() => {}}
+            style={styles.menuItem}
+          >
+            <View style={styles.menuLeft}>
+              <Image
+                source={require('../../assets/desafioIcon.png')}
+                style={styles.menuIcon}
+              />
+              <Text style={styles.menuLabel}>Desafios</Text>
+            </View>
+            <Text style={styles.chev}>{'>'}</Text>
+          </TouchableOpacity>
+
+          {/* Jogue em turma */}
+          <TouchableOpacity
+            onPress={() => {}}
+            style={styles.menuItem}
+          >
+            <View style={styles.menuLeft}>
+              <Image
+                source={require('../../assets/turmaIcon.png')}
+                style={styles.menuIcon}
+              />
+              <Text style={styles.menuLabel}>Jogue em turma</Text>
+            </View>
+            <Text style={styles.chev}>{'>'}</Text>
+          </TouchableOpacity>
+
+          {/* SEPARADOR VISUAL */}
+          <View style={styles.menuGroupSeparator} />
+
+          {/* Troca de pontos */}
+          <TouchableOpacity
+            onPress={() => go('Premios')}
+            style={styles.menuItem}
+          >
+            <View style={styles.menuLeft}>
+              <Image
+                source={require('../../assets/premioIcon.png')}
+                style={styles.menuIcon}
+              />
+              <Text style={styles.menuLabel}>Troca de pontos</Text>
+            </View>
+            <Text style={styles.chev}>{'>'}</Text>
+          </TouchableOpacity>
+
+          {/* ESPAÇO FINAL */}
+          <View style={styles.menuBottomSpacer} />
+        </ScrollView>
       </View>
     </View>
   );

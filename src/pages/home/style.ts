@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   quickText: {
     fontSize: 12,
     textAlign: 'center',
-    maxWidth: 80,
+    maxWidth: 90,
   },
   bottomTabContainer: {
     flexDirection: 'row',

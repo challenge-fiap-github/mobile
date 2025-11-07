@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
     buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginTop: 50, 
+    marginTop: 60, 
     },
   cardButton: {
     backgroundColor: '#FFF',
     width: 154,
-    height: 193,
+    height: 225,
     borderRadius: 20,
     padding: 16,
     alignItems: 'center',
