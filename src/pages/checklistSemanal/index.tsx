@@ -1,3 +1,5 @@
+// src/pages/checklistSemanal/index.tsx
+
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -18,43 +20,37 @@ const TASKS = [
   'Enxaguei os dentes 1x ao dia',
 ];
 
-const STORAGE_KEY = 'ChecklistSemanal';
+// chave separada pra não conflitar com versão "produção"
+const STORAGE_KEY = 'ChecklistSemanal_TESTE_LIVRE';
+
+type Nav = NativeStackNavigationProp<RootStackParamList, 'ChecklistSemanal'>;
 
 export default function ChecklistSemanal() {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<Nav>();
   const [checked, setChecked] = useState<{ [key: string]: boolean }>({});
-
-  const getCurrentWeek = () => {
-    const now = new Date();
-    const firstDayOfYear = new Date(now.getFullYear(), 0, 1);
-    const pastDaysOfYear = (now.getTime() - firstDayOfYear.getTime()) / 86400000;
-    return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
-  };
-
-  const shouldReset = async () => {
-    const lastReset = await AsyncStorage.getItem(`${STORAGE_KEY}_lastReset`);
-    const currentWeek = getCurrentWeek().toString();
-    if (lastReset !== currentWeek) {
-      await AsyncStorage.removeItem(STORAGE_KEY);
-      await AsyncStorage.setItem(`${STORAGE_KEY}_lastReset`, currentWeek);
-    }
-  };
 
   useEffect(() => {
     const load = async () => {
-      await shouldReset();
-      const stored = await AsyncStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        setChecked(JSON.parse(stored));
+      try {
+        const stored = await AsyncStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          setChecked(JSON.parse(stored));
+        }
+      } catch {
+        setChecked({});
       }
     };
     load();
   }, []);
 
   const toggleCheck = async (task: string) => {
-    const updated = { ...checked, [task]: !checked[task] };
-    setChecked(updated);
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    try {
+      const updated = { ...checked, [task]: !checked[task] };
+      setChecked(updated);
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleBack = () => {
@@ -63,6 +59,7 @@ export default function ChecklistSemanal() {
 
   return (
     <View style={styles.container}>
+      {/* HEADER */}
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBack}>
           <Image
@@ -74,6 +71,7 @@ export default function ChecklistSemanal() {
         <View style={{ width: 22 }} />
       </View>
 
+      {/* LISTA */}
       <FlatList
         data={TASKS}
         keyExtractor={(item) => item}
@@ -81,10 +79,17 @@ export default function ChecklistSemanal() {
           <TouchableOpacity
             style={styles.taskItem}
             onPress={() => toggleCheck(item)}
-            disabled={checked[item]} // desabilita após marcar
+            activeOpacity={0.8}
           >
-            <View style={[styles.checkbox, checked[item] && styles.checkedBox]}>
-              {checked[item] && <Text style={styles.checkmark}>X</Text>}
+            <View
+              style={[
+                styles.checkbox,
+                checked[item] && styles.checkedBox,
+              ]}
+            >
+              {checked[item] && (
+                <Text style={styles.checkmark}>X</Text>
+              )}
             </View>
             <Text style={styles.taskText}>{item}</Text>
           </TouchableOpacity>

@@ -5,7 +5,9 @@ export type RootStackParamList = {
   Splash: undefined;
   Home: undefined;
   Game: undefined;
-  Consulta: undefined;
+
+  // Pontos / Consulta
+  Consulta: undefined | { from?: string };
 
   // Agendamento
   Agendamento: undefined;
@@ -29,16 +31,34 @@ export type RootStackParamList = {
   Premios: undefined;
   TarefasDiarias: undefined;
   PontuacaoConsulta: undefined;
-  DesafioEmGrupo: undefined;
+  Desafio: undefined;
 
   // Autenticação
   Login: undefined;
   Cadastro: undefined;
   PrimeiroAcesso: undefined;
 
-  // Seleção de localização
+  // Busca de rede / Clínicas
   BuscaRede: undefined;
   Clinica: undefined;
+
+  // Desafio em grupo
+  DesafioEmGrupo: undefined;
+  CadastrarGrupo: undefined;
+  MeusGrupos: undefined;
+  Grupo: {
+    groupId: string;
+    name?: string;
+  };
+
+  // Tela de avaliação de consulta
+  Avaliacao: {
+    doutor?: string;
+    tipo?: string;
+    data?: string;
+  };
+
+  // Seleção de localização
   BuscarLocalidade: {
     estadoSelecionado?: string;
     cidadeSelecionada?: string;
@@ -49,10 +69,5 @@ export type RootStackParamList = {
   SelecionarBairro: {
     estadoSelecionado: string;
     cidadeSelecionada: string;
-  };
-
-  // Avaliação de consulta
-  Avaliacao: {
-    doutor: string;
   };
 };

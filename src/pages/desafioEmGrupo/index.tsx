@@ -1,3 +1,5 @@
+// src/pages/desafioEmGrupo/index.tsx
+
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -29,13 +31,11 @@ export default function DesafioEmGrupo() {
   };
 
   const handleCriarGrupo = () => {
-    // Futuro: navigation.navigate('CriarGrupo');
-    console.log('Criar grupo');
+    navigation.navigate('CadastrarGrupo');
   };
 
   const handleMeusGrupos = () => {
-    // Futuro: navigation.navigate('MeusGrupos');
-    console.log('Meus grupos');
+    navigation.navigate('MeusGrupos');
   };
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function DesafioEmGrupo() {
         barStyle="light-content"
       />
 
-      {/* HEADER AZUL ESCURO (mesmo esquema do Game) */}
+      {/* HEADER AZUL ESCURO (padrão Game) */}
       <View style={styles.topBar}>
         <TouchableOpacity onPress={handleBack}>
           <Image
@@ -80,7 +80,7 @@ export default function DesafioEmGrupo() {
         </TouchableOpacity>
       </View>
 
-      {/* AVATAR SOBREPOSTO (mesma lógica do Game) */}
+      {/* AVATAR SOBREPOSTO */}
       <View style={styles.avatarWrapper}>
         {profileImage ? (
           <Image source={{ uri: profileImage }} style={styles.avatarImg} />
@@ -89,7 +89,7 @@ export default function DesafioEmGrupo() {
         )}
       </View>
 
-      {/* CARDS ABAIXO DO AVATAR */}
+      {/* CARDS */}
       <View style={styles.cardsContainer}>
         <TouchableOpacity
           style={styles.card}
@@ -98,8 +98,8 @@ export default function DesafioEmGrupo() {
         >
           <Text style={styles.cardTitle}>Criar um grupo</Text>
           <Text style={styles.cardText}>
-            Monte um grupo de amigos e descubra quem é o campeão da saúde
-            bucal!{'\n'}Topa o desafio?
+            Monte um grupo de amigos e descubra quem é o campeão da saúde bucal!
+            {'\n'}Topa o desafio?
           </Text>
         </TouchableOpacity>
 

@@ -33,6 +33,10 @@ import SelecionarBairro from "./src/pages/selecioneBairro";
 import TokenConsulta from "./src/pages/tokenConsulta";
 import Avaliacao from "./src/pages/avaliacao";
 import DesafioEmGrupo from "./src/pages/desafioEmGrupo";
+import CadastrarGrupo from "./src/pages/cadastrarGrupo";
+import MeusGrupos from "./src/pages/meusGrupos";
+import Grupo from "./src/pages/grupo";
+import Desafio from './src/pages/desafio';
 
 import { RootStackParamList } from "./src/navigation/types";
 
@@ -64,18 +68,9 @@ export default function App() {
         {/* Agendamento */}
         <Stack.Screen name="Agendamento" component={Agendamento} />
         <Stack.Screen name="AgendamentoBusca" component={AgendamentoBusca} />
-        <Stack.Screen
-          name="AgendamentoConsulta"
-          component={AgendamentoConsulta}
-        />
-        <Stack.Screen
-          name="AgendamentoResultado"
-          component={AgendamentoResultado}
-        />
-        <Stack.Screen
-          name="MeusAgendamentos"
-          component={MeusAgendamentos}
-        />
+        <Stack.Screen name="AgendamentoConsulta" component={AgendamentoConsulta} />
+        <Stack.Screen name="AgendamentoResultado" component={AgendamentoResultado} />
+        <Stack.Screen name="MeusAgendamentos" component={MeusAgendamentos} />
 
         {/* Funcionalidades */}
         <Stack.Screen name="Cobertura" component={Cobertura} />
@@ -90,35 +85,23 @@ export default function App() {
         {/* Gamificação */}
         <Stack.Screen name="Premios" component={Premios} />
         <Stack.Screen name="Quiz" component={Quiz} />
-        <Stack.Screen
-          name="TarefasDiarias"
-          component={TarefasDiarias}
-        />
-        <Stack.Screen
-          name="PontuacaoConsulta"
-          component={PontuacaoConsulta}
-        />
+        <Stack.Screen name="TarefasDiarias" component={TarefasDiarias} />
+        <Stack.Screen name="PontuacaoConsulta" component={PontuacaoConsulta} />
+        <Stack.Screen name="Desafio" component={Desafio} />
+
+        {/* Desafio em grupo */}
         <Stack.Screen name="DesafioEmGrupo" component={DesafioEmGrupo} />
+        <Stack.Screen name="CadastrarGrupo" component={CadastrarGrupo} />
+        <Stack.Screen name="MeusGrupos" component={MeusGrupos} />
+        <Stack.Screen name="Grupo" component={Grupo} />
 
         {/* Localização */}
-        <Stack.Screen
-          name="BuscarLocalidade"
-          component={BuscarLocalidade}
-        />
-        <Stack.Screen
-          name="SelecionarEstado"
-          component={SelecionarEstado}
-        />
-        <Stack.Screen
-          name="SelecionarCidade"
-          component={SelecionarCidade}
-        />
-        <Stack.Screen
-          name="SelecionarBairro"
-          component={SelecionarBairro}
-        />
+        <Stack.Screen name="BuscarLocalidade" component={BuscarLocalidade} />
+        <Stack.Screen name="SelecionarEstado" component={SelecionarEstado} />
+        <Stack.Screen name="SelecionarCidade" component={SelecionarCidade} />
+        <Stack.Screen name="SelecionarBairro" component={SelecionarBairro} />
 
-        {/* Avaliação de Consulta */}
+        {/* Avaliação */}
         <Stack.Screen name="Avaliacao" component={Avaliacao} />
       </Stack.Navigator>
     </NavigationContainer>

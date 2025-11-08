@@ -36,19 +36,78 @@ export default StyleSheet.create({
     marginRight: 30,
   },
 
-  // Card
+  /** CARTEIRINHA - CARTÃO FINO */
+  cardCarteirinha: {
+    backgroundColor: BRANCO,
+    marginTop: 16,
+    marginHorizontal: 20,
+    borderRadius: 24,
+    overflow: 'hidden',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.12,
+    shadowRadius: 4,
+  },
+
+  cardTopRow: {
+    paddingHorizontal: 18,
+    paddingTop: 10,
+    paddingBottom: 4,
+  },
+  cardLogoText: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: AZUL,
+  },
+
+  cardBlueStrip: {
+    backgroundColor: AZUL,
+    paddingVertical: 6,
+    paddingHorizontal: 18,
+  },
+  cardNumber: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: BRANCO,
+    letterSpacing: 1,
+  },
+
+  cardInfoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 18,
+    paddingVertical: 4,
+  },
+  cardLabel: {
+    fontSize: 11.5,
+    fontWeight: '700',
+    color: AZUL,
+    marginRight: 4,
+  },
+  cardValue: {
+    fontSize: 11.5,
+    color: '#111',
+    flexShrink: 1,
+  },
+
+  /** CARD DO TOKEN */
   card: {
     backgroundColor: BRANCO,
-    marginTop: 24,
+    marginTop: 18,
     marginHorizontal: 20,
     borderRadius: 16,
     padding: 18,
     elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.12,
+    shadowRadius: 4,
   },
+
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
     marginBottom: 8,
   },
   tokenIcon: {
@@ -56,6 +115,7 @@ export default StyleSheet.create({
     height: 32,
     resizeMode: 'contain',
     tintColor: AZUL,
+    marginRight: 12,
   },
   tokenValue: {
     fontSize: 36,
@@ -69,12 +129,10 @@ export default StyleSheet.create({
     marginTop: 4,
   },
 
-  // Footer do card
   footerRow: {
     marginTop: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
   },
   timerLabel: {
     fontSize: 13,
@@ -84,6 +142,7 @@ export default StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: '#111',
+    marginLeft: 4,
   },
   refreshBtn: {
     marginLeft: 'auto',

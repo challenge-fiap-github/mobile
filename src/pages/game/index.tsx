@@ -1,5 +1,3 @@
-// src/pages/game/index.tsx
-
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -166,9 +164,9 @@ export default function Game() {
             <Text style={styles.chev}>{'>'}</Text>
           </TouchableOpacity>
 
-          {/* Desafios */}
+          {/* Desafios especiais -> tela Desafio */}
           <TouchableOpacity
-            onPress={() => {}}
+            onPress={() => go('Desafio')}
             style={styles.menuItem}
           >
             <View style={styles.menuLeft}>

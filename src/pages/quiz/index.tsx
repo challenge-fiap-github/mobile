@@ -1,3 +1,5 @@
+// src/pages/quiz/index.tsx
+
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,25 +11,89 @@ import styles from './style';
 type Nav = NativeStackNavigationProp<RootStackParamList, 'Quiz'>;
 
 const TODAS_PERGUNTAS = [
-  { pergunta: 'Quantas vezes ao dia é recomendado escovar os dentes?', alternativas: ['1 vez', '2 a 3 vezes', '4 vezes', 'Apenas após o jantar'], resposta: '2 a 3 vezes' },
-  { pergunta: 'Qual item é essencial para limpar entre os dentes?', alternativas: ['Fio dental', 'Escova de cabelo', 'Pasta de dente', 'Enxaguante'], resposta: 'Fio dental' },
-  { pergunta: 'O que o enxaguante bucal combate?', alternativas: ['Cáries', 'Mau hálito', 'Placa bacteriana', 'Todas as anteriores'], resposta: 'Todas as anteriores' },
-  { pergunta: 'Qual o tempo mínimo para uma escovação eficiente?', alternativas: ['30 segundos', '1 minuto', '2 minutos', '5 minutos'], resposta: '2 minutos' },
-  { pergunta: 'A troca da escova deve ser feita a cada:', alternativas: ['1 mês', '3 meses', '6 meses', '1 ano'], resposta: '3 meses' },
-  { pergunta: 'O excesso de açúcar pode causar:', alternativas: ['Gengivite', 'Cáries', 'Halitose', 'Bruxismo'], resposta: 'Cáries' },
-  { pergunta: 'Qual profissional cuida da saúde bucal?', alternativas: ['Pediatra', 'Dentista', 'Fisioterapeuta', 'Nutricionista'], resposta: 'Dentista' },
-  { pergunta: 'Qual destas ações NÃO é recomendada?', alternativas: ['Dormir sem escovar os dentes', 'Usar fio dental', 'Escovar após refeições', 'Visitar o dentista regularmente'], resposta: 'Dormir sem escovar os dentes' },
-  { pergunta: 'Escovar a língua ajuda a evitar:', alternativas: ['Cáries', 'Placa', 'Mau hálito', 'Gengivite'], resposta: 'Mau hálito' },
-  { pergunta: 'Qual a função da saliva?', alternativas: ['Hidratar', 'Proteger dentes', 'Iniciar digestão', 'Todas as anteriores'], resposta: 'Todas as anteriores' },
-  { pergunta: 'Qual o impacto do cigarro na saúde bucal?', alternativas: ['Amarelece dentes', 'Causa câncer bucal', 'Mau hálito', 'Todas as anteriores'], resposta: 'Todas as anteriores' },
-  { pergunta: 'Beber água ajuda na saúde bucal porque:', alternativas: ['Lubrifica', 'Limpa resíduos', 'Estimula saliva', 'Todas as anteriores'], resposta: 'Todas as anteriores' },
-  { pergunta: 'Crianças devem ir ao dentista a partir de qual idade?', alternativas: ['1 ano', '3 anos', '5 anos', '7 anos'], resposta: '1 ano' },
-  { pergunta: 'O uso frequente de balas pode causar:', alternativas: ['Alergia', 'Dor de barriga', 'Cáries', 'Gripe'], resposta: 'Cáries' },
-  { pergunta: 'Alimentos ricos em cálcio são importantes para:', alternativas: ['Ossos e dentes', 'Cabelo', 'Olhos', 'Estômago'], resposta: 'Ossos e dentes' },
+  {
+    pergunta: 'Quantas vezes ao dia é recomendado escovar os dentes?',
+    alternativas: ['1 vez', '2 a 3 vezes', '4 vezes', 'Apenas após o jantar'],
+    resposta: '2 a 3 vezes',
+  },
+  {
+    pergunta: 'Qual item é essencial para limpar entre os dentes?',
+    alternativas: ['Fio dental', 'Escova de cabelo', 'Pasta de dente', 'Enxaguante'],
+    resposta: 'Fio dental',
+  },
+  {
+    pergunta: 'O que o enxaguante bucal combate?',
+    alternativas: ['Cáries', 'Mau hálito', 'Placa bacteriana', 'Todas as anteriores'],
+    resposta: 'Todas as anteriores',
+  },
+  {
+    pergunta: 'Qual o tempo mínimo para uma escovação eficiente?',
+    alternativas: ['30 segundos', '1 minuto', '2 minutos', '5 minutos'],
+    resposta: '2 minutos',
+  },
+  {
+    pergunta: 'A troca da escova deve ser feita a cada:',
+    alternativas: ['1 mês', '3 meses', '6 meses', '1 ano'],
+    resposta: '3 meses',
+  },
+  {
+    pergunta: 'O excesso de açúcar pode causar:',
+    alternativas: ['Gengivite', 'Cáries', 'Halitose', 'Bruxismo'],
+    resposta: 'Cáries',
+  },
+  {
+    pergunta: 'Qual profissional cuida da saúde bucal?',
+    alternativas: ['Pediatra', 'Dentista', 'Fisioterapeuta', 'Nutricionista'],
+    resposta: 'Dentista',
+  },
+  {
+    pergunta: 'Qual destas ações NÃO é recomendada?',
+    alternativas: [
+      'Dormir sem escovar os dentes',
+      'Usar fio dental',
+      'Escovar após refeições',
+      'Visitar o dentista regularmente',
+    ],
+    resposta: 'Dormir sem escovar os dentes',
+  },
+  {
+    pergunta: 'Escovar a língua ajuda a evitar:',
+    alternativas: ['Cáries', 'Placa', 'Mau hálito', 'Gengivite'],
+    resposta: 'Mau hálito',
+  },
+  {
+    pergunta: 'Qual a função da saliva?',
+    alternativas: ['Hidratar', 'Proteger dentes', 'Iniciar digestão', 'Todas as anteriores'],
+    resposta: 'Todas as anteriores',
+  },
+  {
+    pergunta: 'Qual o impacto do cigarro na saúde bucal?',
+    alternativas: ['Amarelece dentes', 'Causa câncer bucal', 'Mau hálito', 'Todas as anteriores'],
+    resposta: 'Todas as anteriores',
+  },
+  {
+    pergunta: 'Beber água ajuda na saúde bucal porque:',
+    alternativas: ['Lubrifica', 'Limpa resíduos', 'Estimula saliva', 'Todas as anteriores'],
+    resposta: 'Todas as anteriores',
+  },
+  {
+    pergunta: 'Crianças devem ir ao dentista a partir de qual idade?',
+    alternativas: ['1 ano', '3 anos', '5 anos', '7 anos'],
+    resposta: '1 ano',
+  },
+  {
+    pergunta: 'O uso frequente de balas pode causar:',
+    alternativas: ['Alergia', 'Dor de barriga', 'Cáries', 'Gripe'],
+    resposta: 'Cáries',
+  },
+  {
+    pergunta: 'Alimentos ricos em cálcio são importantes para:',
+    alternativas: ['Ossos e dentes', 'Cabelo', 'Olhos', 'Estômago'],
+    resposta: 'Ossos e dentes',
+  },
 ];
 
 const PONTOS_KEY = 'GamePoints';
-const getTodayKey = () => `QuizRealizado_${new Date().toDateString()}`;
 
 export default function Quiz() {
   const navigation = useNavigation<Nav>();
@@ -39,33 +105,38 @@ export default function Quiz() {
   const [finalizado, setFinalizado] = useState(false);
 
   useEffect(() => {
-    const verificarQuizDoDia = async () => {
-      const jaFezHoje = await AsyncStorage.getItem(getTodayKey());
-      if (jaFezHoje) {
-        Alert.alert('Quiz bloqueado', 'Você já respondeu o quiz de hoje. Tente novamente amanhã.');
-        navigation.goBack();
-        return;
-      }
-      const embaralhadas = [...TODAS_PERGUNTAS].sort(() => 0.5 - Math.random());
-      setPerguntasHoje(embaralhadas.slice(0, 3));
-    };
-    verificarQuizDoDia();
-  }, [navigation]);
+    // Agora sempre sorteia 3 perguntas ao abrir, sem trava diária
+    const embaralhadas = [...TODAS_PERGUNTAS].sort(() => 0.5 - Math.random());
+    setPerguntasHoje(embaralhadas.slice(0, 3));
+    setIndice(0);
+    setAcertos(0);
+    setErros(0);
+    setFinalizado(false);
+  }, []);
 
   const responder = async (resposta: string) => {
     const correta = perguntasHoje[indice].resposta;
-    if (resposta === correta) setAcertos((p) => p + 1);
-    else setErros((p) => p + 1);
+
+    if (resposta === correta) {
+      setAcertos((p) => p + 1);
+    } else {
+      setErros((p) => p + 1);
+    }
 
     if (indice + 1 < perguntasHoje.length) {
       setIndice((i) => i + 1);
     } else {
+      // terminou
       setFinalizado(true);
-      await AsyncStorage.setItem(getTodayKey(), 'true');
-      const stored = await AsyncStorage.getItem(PONTOS_KEY);
-      const pontos = stored ? parseInt(stored, 10) : 0;
-      await AsyncStorage.setItem(PONTOS_KEY, (pontos + 1).toString());
-      Alert.alert('Parabéns!', 'Você ganhou 1 ponto pelo quiz de hoje!');
+
+      try {
+        const stored = await AsyncStorage.getItem(PONTOS_KEY);
+        const pontos = stored ? parseInt(stored, 10) || 0 : 0;
+        await AsyncStorage.setItem(PONTOS_KEY, String(pontos + 1));
+        Alert.alert('Parabéns!', 'Você ganhou 1 ponto pelo quiz!');
+      } catch {
+        Alert.alert('Quiz finalizado!', 'Não foi possível salvar os pontos, mas suas respostas foram registradas.');
+      }
     }
   };
 
@@ -74,10 +145,12 @@ export default function Quiz() {
   if (perguntasHoje.length === 0) {
     return (
       <View style={styles.container}>
-        {/* HEADER no seu modelo */}
         <View style={styles.header}>
           <TouchableOpacity onPress={handleBack}>
-            <Image source={require('../../assets/backIcon.png')} style={styles.backIcon} />
+            <Image
+              source={require('../../assets/backIcon.png')}
+              style={styles.backIcon}
+            />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Quiz</Text>
           <View style={{ width: 22 }} />
@@ -90,10 +163,13 @@ export default function Quiz() {
 
   return (
     <View style={styles.container}>
-      {/* HEADER no seu modelo */}
+      {/* HEADER */}
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBack}>
-          <Image source={require('../../assets/backIcon.png')} style={styles.backIcon} />
+          <Image
+            source={require('../../assets/backIcon.png')}
+            style={styles.backIcon}
+          />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Quiz</Text>
         <View style={{ width: 22 }} />
@@ -106,6 +182,7 @@ export default function Quiz() {
             <Text style={styles.resultTitle}>Quiz finalizado!</Text>
             <Text style={styles.resultLine}>✅ Acertos: {acertos}</Text>
             <Text style={styles.resultLine}>❌ Erros: {erros}</Text>
+
             <TouchableOpacity style={styles.primaryBtn} onPress={handleBack}>
               <Text style={styles.primaryBtnText}>Voltar</Text>
             </TouchableOpacity>
