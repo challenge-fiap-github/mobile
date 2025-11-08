@@ -1,3 +1,5 @@
+// src/pages/game/index.tsx
+
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -179,9 +181,9 @@ export default function Game() {
             <Text style={styles.chev}>{'>'}</Text>
           </TouchableOpacity>
 
-          {/* Jogue em turma */}
+          {/* Jogue em turma -> DesafioEmGrupo */}
           <TouchableOpacity
-            onPress={() => {}}
+            onPress={() => go('DesafioEmGrupo')}
             style={styles.menuItem}
           >
             <View style={styles.menuLeft}>

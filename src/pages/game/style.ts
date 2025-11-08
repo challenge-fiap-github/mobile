@@ -163,7 +163,7 @@ export default StyleSheet.create({
 
   /** ESPAÇO FINAL PARA NÃO COLAR NA NAVBAR */
   menuBottomSpacer: {
-    height: 120,
+    height: 20,
     backgroundColor: '#FFFFFF',
   },
 });

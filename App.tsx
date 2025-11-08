@@ -31,6 +31,8 @@ import Premios from "./src/pages/premios";
 import Quiz from "./src/pages/quiz";
 import SelecionarBairro from "./src/pages/selecioneBairro";
 import TokenConsulta from "./src/pages/tokenConsulta";
+import Avaliacao from "./src/pages/avaliacao";
+import DesafioEmGrupo from "./src/pages/desafioEmGrupo";
 
 import { RootStackParamList } from "./src/navigation/types";
 
@@ -88,11 +90,15 @@ export default function App() {
         {/* Gamificação */}
         <Stack.Screen name="Premios" component={Premios} />
         <Stack.Screen name="Quiz" component={Quiz} />
-        <Stack.Screen name="TarefasDiarias" component={TarefasDiarias} />
+        <Stack.Screen
+          name="TarefasDiarias"
+          component={TarefasDiarias}
+        />
         <Stack.Screen
           name="PontuacaoConsulta"
           component={PontuacaoConsulta}
         />
+        <Stack.Screen name="DesafioEmGrupo" component={DesafioEmGrupo} />
 
         {/* Localização */}
         <Stack.Screen
@@ -111,6 +117,9 @@ export default function App() {
           name="SelecionarBairro"
           component={SelecionarBairro}
         />
+
+        {/* Avaliação de Consulta */}
+        <Stack.Screen name="Avaliacao" component={Avaliacao} />
       </Stack.Navigator>
     </NavigationContainer>
   );

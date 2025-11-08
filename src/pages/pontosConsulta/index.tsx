@@ -15,13 +15,35 @@ import { RootStackParamList } from '../../navigation/types';
 type Nav = NativeStackNavigationProp<RootStackParamList, 'Consulta'>;
 
 const PONTOS_KEY = 'GamePoints';
-const FOTO_KEY   = 'profileImage';
-const NOME_KEY   = 'usuarioNome';
+const FOTO_KEY = 'profileImage';
+const NOME_KEY = 'usuarioNome';
 
-const consultas = [
-  { doutor: 'Dr. nome do doutor', tipo: 'Consulta limpeza',   pontos: 200, data: '24/02/2025' },
-  { doutor: 'Dr. nome do doutor', tipo: 'Consulta limpeza',   pontos: 200, data: '12/07/2024' },
-  { doutor: 'Dr. nome do doutor', tipo: 'Consulta periódica', pontos: 150, data: '22/06/2024' },
+type ConsultaItem = {
+  id: string;
+  doutor: string;
+  tipo: string;
+  data: string;
+};
+
+const consultas: ConsultaItem[] = [
+  {
+    id: '1',
+    doutor: 'Dr. Thiago Fernandes',
+    tipo: 'Consulta limpeza',
+    data: '24/02/2025',
+  },
+  {
+    id: '2',
+    doutor: 'Dr. Thiago Fernandes',
+    tipo: 'Consulta limpeza',
+    data: '12/07/2024',
+  },
+  {
+    id: '3',
+    doutor: 'Dr. Thiago Fernandes',
+    tipo: 'Consulta periódica',
+    data: '22/06/2024',
+  },
 ];
 
 export default function Consulta() {
@@ -42,67 +64,94 @@ export default function Consulta() {
       setPontos(Number.isNaN(parsed) ? 0 : parsed);
       setProfileImage(storedUri ?? null);
       setNome(storedName ?? '');
-    } catch (_e) {
+    } catch {
       setPontos(0);
       setProfileImage(null);
       setNome('');
     }
   }, []);
 
-  useEffect(() => { loadData(); }, [loadData]);
-  useFocusEffect(React.useCallback(() => { loadData(); }, [loadData]));
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      loadData();
+    }, [loadData])
+  );
 
   const handleBackPress = () => navigation.navigate('Game');
+
+  const handleAvaliar = (item: ConsultaItem) => {
+    navigation.navigate('Avaliacao', { doutor: item.doutor });
+  };
+
   const nomeExibicao = nome?.trim() ? nome : 'Usuário';
 
   return (
     <View style={styles.container}>
-      {/* Header */}
+      {/* HEADER */}
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBackPress}>
-          <Image source={require('../../assets/backIcon.png')} style={styles.backIcon} />
+          <Image
+            source={require('../../assets/backIcon.png')}
+            style={styles.backIcon}
+          />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Pontos de consulta</Text>
         <View style={{ width: 22 }} />
       </View>
 
-      {/* Card do usuário */}
+      {/* CARD DO USUÁRIO */}
       <View style={styles.userCard}>
         <View style={styles.userInfo}>
           <Text style={styles.userName}>{nomeExibicao}</Text>
           <Text style={styles.userScore}>Pontuação: {pontos}</Text>
         </View>
 
-        {/* avatar: usa foto salva ou fallback */}
         <View style={styles.profileCircle}>
           {profileImage ? (
-            <Image source={{ uri: profileImage }} style={styles.profileImage} />
+            <Image
+              source={{ uri: profileImage }}
+              style={styles.profileImage}
+            />
           ) : (
-            <Image source={require('../../assets/fotoPerfil.png')} style={styles.profileImage} />
+            <Image
+              source={require('../../assets/fotoPerfil.png')}
+              style={styles.profileImage}
+            />
           )}
         </View>
       </View>
 
-      {/* Lista de pontos */}
+      {/* LISTA DE CONSULTAS */}
       <FlatList
         data={consultas}
-        keyExtractor={(_, index) => index.toString()}
-        contentContainerStyle={styles.consultaList}
+        keyExtractor={(item) => item.id}
+        style={styles.consultaList}
+        contentContainerStyle={styles.consultaListContent}
+        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          <View style={styles.consultaItem}>
-            <View style={styles.consultaInfo}>
+          <View style={styles.consultaRow}>
+            <View style={styles.consultaTextBlock}>
               <Text style={styles.doutor}>{item.doutor}</Text>
-              <Text style={styles.tipo}>{item.tipo}</Text>
-              <Text style={styles.data}>{item.data}</Text>
-            </View>
-            <View style={styles.pontosBox}>
-              <Text style={styles.pontos}>
-                Pontos: <Text style={{ color: 'green' }}>+{item.pontos}</Text>
+              <Text style={styles.tipo}>
+                {item.tipo}{'   '}
+                <Text style={styles.data}>{item.data}</Text>
               </Text>
             </View>
+
+            <TouchableOpacity
+              style={styles.avaliarButton}
+              onPress={() => handleAvaliar(item)}
+            >
+              <Text style={styles.avaliarText}>AVALIAR</Text>
+              <Text style={styles.avaliarArrow}>{'>'}</Text>
+            </TouchableOpacity>
           </View>
         )}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        ItemSeparatorComponent={() => <View style={styles.divider} />}
       />
     </View>
   );

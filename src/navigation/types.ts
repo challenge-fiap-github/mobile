@@ -29,6 +29,7 @@ export type RootStackParamList = {
   Premios: undefined;
   TarefasDiarias: undefined;
   PontuacaoConsulta: undefined;
+  DesafioEmGrupo: undefined;
 
   // Autenticação
   Login: undefined;
@@ -45,5 +46,13 @@ export type RootStackParamList = {
   };
   SelecionarEstado: undefined;
   SelecionarCidade: { estadoSelecionado: string };
-  SelecionarBairro: { estadoSelecionado: string; cidadeSelecionada: string };
+  SelecionarBairro: {
+    estadoSelecionado: string;
+    cidadeSelecionada: string;
+  };
+
+  // Avaliação de consulta
+  Avaliacao: {
+    doutor: string;
+  };
 };

@@ -7,6 +7,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#E6E6E6',
   },
+
+  /* HEADER (igual antes) */
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -29,6 +31,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginRight: 30,
   },
+
+  /* CARD DO USUÁRIO (igual antes) */
   userCard: {
     backgroundColor: '#FFF',
     width: width,
@@ -52,6 +56,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 4,
+    color: '#000',
   },
   userScore: {
     fontSize: 13,
@@ -71,44 +76,64 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 40,
   },
+
+  /* LISTA DE CONSULTAS (NOVA) */
   consultaList: {
+    flex: 1,
+    backgroundColor: '#E6E6E6',
+  },
+  consultaListContent: {
     paddingHorizontal: 16,
-    paddingTop: 20,
+    paddingTop: 18,
+    paddingBottom: 24,
+    backgroundColor: '#E6E6E6',
   },
-  consultaItem: {
+
+  consultaRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#FFF',
-    padding: 12,
-    borderRadius: 12,
+    paddingVertical: 10,
   },
-  consultaInfo: {
+  consultaTextBlock: {
     flex: 1,
   },
   doutor: {
     fontWeight: 'bold',
     fontSize: 14,
+    color: '#000',
+    marginBottom: 2,
   },
   tipo: {
     fontSize: 13,
-    color: '#666',
-    marginTop: 2,
+    color: '#444',
   },
   data: {
     fontSize: 12,
-    color: '#888',
-    marginTop: 4,
+    color: '#666',
   },
-  pontosBox: {
-    marginLeft: 16,
+
+  avaliarButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 12,
   },
-  pontos: {
+  avaliarText: {
     fontSize: 14,
     fontWeight: 'bold',
+    color: '#000',
   },
-  separator: {
-    height: 10,
+  avaliarArrow: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000',
+    marginLeft: 4,
+  },
+
+  /* DIVISOR ENTRE ITENS */
+  divider: {
+    height: 1,
+    backgroundColor: '#CFCFCF',
+    width: '100%',
   },
 });
 
